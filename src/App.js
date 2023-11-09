@@ -5,10 +5,12 @@ import RegisterPage from "./pages/RegisterPage";
 import MyPlacesPage from "./pages/MyPlacesPage";
 import PlacesPage from "./pages/PlacesPage";
 import PageNotFound from "./pages/PageNotFound";
+import MainNavigation from "./shared/Navigation/MainNavigation";
 
 function App() {
   return (
     <BrowserRouter>
+      <MainNavigation />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />

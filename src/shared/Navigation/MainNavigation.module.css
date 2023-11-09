@@ -1,0 +1,47 @@
+.mainNavigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: chartreuse;
+  padding: 1rem 5rem;
+  color: black;
+}
+
+.logo {
+  flex: 1;
+}
+
+.menu {
+  display: none;
+  font-size: 3rem;
+}
+
+.drawerNav {
+  z-index: 15;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.drawerNav ul {
+  display: flex;
+  flex-direction: column;
+}
+
+.drawerNav ul li {
+  margin-bottom: 2rem;
+}
+
+.drawerNav ul li a {
+  color: #000;
+  font-size: 2rem;
+}
+
+@media only screen and (max-width: 600px) {
+  .menu {
+    display: block;
+  }
+  .bigScreen {
+    display: none;
+  }
+}
