@@ -1,0 +1,8 @@
+.places {
+  padding: 4rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 45px;
+  justify-content: center;
+  background-color: #fff;
+}
