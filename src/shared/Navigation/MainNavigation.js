@@ -4,6 +4,7 @@ import Navigation from "./NavLinks";
 import { AiOutlineMenu } from "react-icons/ai";
 import BackDrop from "../UiElements/Backdrop";
 import SideDrawer from "./SideDrawer";
+import logo from "../../assets/oie_o75FzJ35Mzez.png";
 
 function MainNavigation() {
   const [drawerIsOpen, setDrawerIsOpen] = useState(false);
@@ -32,7 +33,7 @@ function MainNavigation() {
         </nav>
       </SideDrawer>
 
-      <h1 className={classes.logo}>Share Travel</h1>
+      <img className={classes.logo} src={logo} alt="img-logo" />
       <nav className={classes.bigScreen}>
         <Navigation />
       </nav>
