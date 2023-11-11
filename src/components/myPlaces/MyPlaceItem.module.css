@@ -1,0 +1,22 @@
+.place {
+  flex: 2;
+  margin-bottom: 5rem;
+  text-align: center;
+}
+.placeBox img {
+  width: 100%;
+}
+
+.placeBox h3 {
+  margin-top: 1rem;
+}
+
+.placeBox p {
+  margin-top: 1rem;
+}
+
+.action {
+  display: flex;
+  margin: 1rem 0;
+  justify-content: center;
+}

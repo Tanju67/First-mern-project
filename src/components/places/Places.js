@@ -5,13 +5,13 @@ import classes from "./Places.module.css";
 import usePagination from "../../shared/hooks/usePagination";
 
 function Places() {
-  console.log(data);
   const [currentItems, pagination] = usePagination(6, data);
-  console.log(currentItems, pagination);
   return (
     <div className={classes.places}>
       {currentItems.map((d) => (
         <PlaceItem
+          key={d.id}
+          id={d.id}
           title={d.title}
           description={d.description}
           image={d.image}

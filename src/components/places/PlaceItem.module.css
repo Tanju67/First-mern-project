@@ -1,11 +1,13 @@
 .placeItem {
   width: 30%;
   position: relative;
+  text-align: center;
 }
 .userBox {
   display: flex;
   align-items: center;
   gap: 10px;
+  margin-bottom: 1rem;
 }
 
 .imgBox {
@@ -24,7 +26,8 @@
   overflow: hidden;
 }
 
-.placeBox {
+.actions {
+  margin-top: 2rem;
 }
 
 .placeBox img {
