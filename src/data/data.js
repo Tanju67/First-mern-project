@@ -2,6 +2,8 @@ const data = [
   {
     id: "p1",
     title: "Ankara",
+    address: "Ankara",
+    coordinates: { lat: 45, lng: 45 },
     description: "Harika",
     image:
       "https://cdn.britannica.com/50/198450-050-3554B2AF/Ankara-Turkey.jpg",
@@ -12,6 +14,8 @@ const data = [
   {
     id: "p2",
     title: "Ankara",
+    address: "Ankara",
+    coordinates: { lat: 45, lng: 45 },
     description: "Harika",
     image:
       "https://cdn.britannica.com/50/198450-050-3554B2AF/Ankara-Turkey.jpg",
@@ -22,6 +26,8 @@ const data = [
   {
     id: "p3",
     title: "Ankara",
+    address: "Ankara",
+    coordinates: { lat: 45, lng: 45 },
     description: "Harika",
     image:
       "https://cdn.britannica.com/50/198450-050-3554B2AF/Ankara-Turkey.jpg",
@@ -32,6 +38,8 @@ const data = [
   {
     id: "p4",
     title: "Ankara",
+    address: "Ankara",
+    coordinates: { lat: 45, lng: 45 },
     description: "Harika",
     image:
       "https://cdn.britannica.com/50/198450-050-3554B2AF/Ankara-Turkey.jpg",
@@ -42,6 +50,8 @@ const data = [
   {
     id: "p5",
     title: "Ankara",
+    address: "Ankara",
+    coordinates: { lat: 45, lng: 45 },
     description: "Harika",
     image:
       "https://cdn.britannica.com/50/198450-050-3554B2AF/Ankara-Turkey.jpg",
@@ -52,6 +62,8 @@ const data = [
   {
     id: "p6",
     title: "Ankara",
+    address: "Ankara",
+    coordinates: { lat: 45, lng: 45 },
     description: "Harika",
     image:
       "https://cdn.britannica.com/50/198450-050-3554B2AF/Ankara-Turkey.jpg",
@@ -62,6 +74,8 @@ const data = [
   {
     id: "p7",
     title: "Ankara",
+    address: "Ankara",
+    coordinates: { lat: 45, lng: 45 },
     description: "Harika",
     image:
       "https://cdn.britannica.com/50/198450-050-3554B2AF/Ankara-Turkey.jpg",
@@ -72,6 +86,8 @@ const data = [
   {
     id: "p8",
     title: "Ankara",
+    address: "Ankara",
+    coordinates: { lat: 45, lng: 45 },
     description: "Harika",
     image:
       "https://cdn.britannica.com/50/198450-050-3554B2AF/Ankara-Turkey.jpg",
@@ -82,6 +98,8 @@ const data = [
   {
     id: "p9",
     title: "Ankara",
+    address: "Ankara",
+    coordinates: { lat: 45, lng: 45 },
     description: "Harika",
     image:
       "https://cdn.britannica.com/50/198450-050-3554B2AF/Ankara-Turkey.jpg",
@@ -92,6 +110,8 @@ const data = [
   {
     id: "p10",
     title: "Ankara",
+    address: "Ankara",
+    coordinates: { lat: 45, lng: 45 },
     description: "Harika",
     image:
       "https://cdn.britannica.com/50/198450-050-3554B2AF/Ankara-Turkey.jpg",
@@ -102,6 +122,8 @@ const data = [
   {
     id: "p11",
     title: "Ankara",
+    address: "Ankara",
+    coordinates: { lat: 45, lng: 45 },
     description: "Harika",
     image:
       "https://cdn.britannica.com/50/198450-050-3554B2AF/Ankara-Turkey.jpg",
@@ -112,6 +134,8 @@ const data = [
   {
     id: "p12",
     title: "Ankara",
+    address: "Ankara",
+    coordinates: { lat: 45, lng: 45 },
     description: "Harika",
     image:
       "https://cdn.britannica.com/50/198450-050-3554B2AF/Ankara-Turkey.jpg",
@@ -122,6 +146,8 @@ const data = [
   {
     id: "p13",
     title: "Ankara",
+    address: "Ankara",
+    coordinates: { lat: 45, lng: 45 },
     description: "Harika",
     image:
       "https://cdn.britannica.com/50/198450-050-3554B2AF/Ankara-Turkey.jpg",
@@ -132,6 +158,8 @@ const data = [
   {
     id: "p14",
     title: "Ankara",
+    address: "Ankara",
+    coordinates: { lat: 45, lng: 45 },
     description: "Harika",
     image:
       "https://cdn.britannica.com/50/198450-050-3554B2AF/Ankara-Turkey.jpg",
@@ -142,6 +170,8 @@ const data = [
   {
     id: "p15",
     title: "Ankara",
+    address: "Ankara",
+    coordinates: { lat: 45, lng: 45 },
     description: "Harika",
     image:
       "https://cdn.britannica.com/50/198450-050-3554B2AF/Ankara-Turkey.jpg",
@@ -152,6 +182,8 @@ const data = [
   {
     id: "p16",
     title: "Ankara",
+    address: "Ankara",
+    coordinates: { lat: 45, lng: 45 },
     description: "Harika",
     image:
       "https://cdn.britannica.com/50/198450-050-3554B2AF/Ankara-Turkey.jpg",
@@ -162,6 +194,8 @@ const data = [
   {
     id: "p17",
     title: "Ankara",
+    address: "Ankara",
+    coordinates: { lat: 45, lng: 45 },
     description: "Harika",
     image:
       "https://cdn.britannica.com/50/198450-050-3554B2AF/Ankara-Turkey.jpg",
@@ -172,6 +206,8 @@ const data = [
   {
     id: "p18",
     title: "Ankara",
+    address: "Ankara",
+    coordinates: { lat: 45, lng: 45 },
     description: "Harika",
     image:
       "https://cdn.britannica.com/50/198450-050-3554B2AF/Ankara-Turkey.jpg",
@@ -182,6 +218,8 @@ const data = [
   {
     id: "p19",
     title: "Ankara",
+    address: "Ankara",
+    coordinates: { lat: 45, lng: 45 },
     description: "Harika",
     image:
       "https://cdn.britannica.com/50/198450-050-3554B2AF/Ankara-Turkey.jpg",
@@ -192,6 +230,8 @@ const data = [
   {
     id: "p20",
     title: "Ankara",
+    address: "Ankara",
+    coordinates: { lat: 45, lng: 45 },
     description: "Harika",
     image:
       "https://cdn.britannica.com/50/198450-050-3554B2AF/Ankara-Turkey.jpg",
