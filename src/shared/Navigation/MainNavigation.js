@@ -12,6 +12,7 @@ function MainNavigation() {
     <div className={classes.mainNavigation}>
       {drawerIsOpen && (
         <BackDrop
+          show={drawerIsOpen}
           onClick={() => {
             setDrawerIsOpen(false);
           }}
