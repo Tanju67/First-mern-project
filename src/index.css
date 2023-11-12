@@ -27,6 +27,25 @@ body {
   height: 100vh;
 }
 
+ul {
+  list-style: none;
+}
+
+hr {
+  border: 1px solid #ddd;
+  margin: 2rem 0;
+}
+
+.noFound {
+  padding: 4rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 45px;
+  justify-content: center;
+  background-color: #f2f2f2;
+  height: 100vh;
+}
+
 .slide-in-left-enter {
   transform: translateX(-100%);
 }

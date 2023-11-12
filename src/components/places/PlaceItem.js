@@ -7,10 +7,15 @@ function PlaceItem(props) {
   return (
     <Card className={classes.placeItem}>
       <div className={classes.userBox}>
-        <div className={classes.imgBox}>
-          <img src={props.userImg} alt={props.title} />
+        <div className={classes.userProfile}>
+          <div className={classes.imgBox}>
+            <img src={props.userImg} alt={props.title} />
+          </div>
+          <span>Tanju Özer</span>
         </div>
-        <span>Tanju Özer</span>
+        <div className={classes.postDate}>
+          <span>12/12/2023</span>
+        </div>
       </div>
       <div className={classes.placeBox}>
         <img src={props.image} alt={props.title} />
@@ -18,6 +23,7 @@ function PlaceItem(props) {
         <h3>{props.title}</h3>
         <p>{props.description}</p>
       </div>
+      <hr />
       <div className={classes.actions}>
         <Button to={props.id}>DETAIL</Button>
       </div>

@@ -6,8 +6,19 @@
 .userBox {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 10px;
   margin-bottom: 1rem;
+}
+
+.userProfile {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.postDate {
+  font-size: 1.2rem;
 }
 
 .imgBox {
@@ -26,10 +37,10 @@
   overflow: hidden;
 }
 
-.actions {
-  margin-top: 2rem;
-}
-
 .placeBox img {
   width: 100%;
+}
+
+.placeItem hr {
+  margin: 1rem 0;
 }

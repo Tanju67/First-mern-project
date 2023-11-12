@@ -25,7 +25,7 @@
 .navLinks a.active {
 } */
 
-.navLinks li a::after {
+.navLinks li:not(:last-child) a::after {
   content: "";
   box-sizing: border-box;
   position: absolute;
@@ -38,9 +38,9 @@
   transform: scale3d(0, 1, 1);
 }
 
-.navLinks li a:hover::after,
-.navLinks li a:active::after,
-.navLinks li a.active::after {
+.navLinks li:not(:last-child) a:hover::after,
+.navLinks li:not(:last-child) a:active::after,
+.navLinks li:not(:last-child) a.active::after {
   transform: scale3d(1, 1, 1);
   transition: transform 250ms;
 }

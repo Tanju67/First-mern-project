@@ -1,5 +1,5 @@
 import React from "react";
-import MyPlaces from "../myPlaces/MyPlaces";
+import UserPlaces from "../UserPlaces/UserPlaces";
 import data from "../../data/data";
 import { useParams } from "react-router-dom";
 
@@ -8,7 +8,7 @@ function PlaceDetail() {
   console.log(data);
   const place = data.filter((d) => d.id === placeId.pid);
   console.log(place);
-  return <MyPlaces places={place} detail={true} />;
+  return <UserPlaces places={place} detail={true} />;
 }
 
 export default PlaceDetail;

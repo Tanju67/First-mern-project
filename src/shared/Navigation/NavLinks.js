@@ -1,8 +1,9 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import classes from "./NavLinks.module.css";
+import Button from "../UiElements/Button";
 
-function Navigation(props) {
+function NavLinks(props) {
   return (
     <ul className={classes.navLinks} onClick={props.onClick}>
       <li>
@@ -24,7 +25,7 @@ function Navigation(props) {
       <li>
         <NavLink
           className={({ isActive }) => (isActive ? classes.active : "")}
-          to={"/myplaces"}
+          to={"/user-places/u2"}
         >
           My Places
         </NavLink>
@@ -33,13 +34,22 @@ function Navigation(props) {
       <li>
         <NavLink
           className={({ isActive }) => (isActive ? classes.active : "")}
+          to={"/add-place"}
+        >
+          Add Place
+        </NavLink>
+      </li>
+
+      <li>
+        <Button
+          className={({ isActive }) => (isActive ? classes.active : "")}
           to={"/login"}
         >
           Login
-        </NavLink>
+        </Button>
       </li>
     </ul>
   );
 }
 
-export default Navigation;
+export default NavLinks;

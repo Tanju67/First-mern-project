@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import classes from "./MainNavigation.module.css";
-import Navigation from "./NavLinks";
+import NavLinks from "./NavLinks";
 import { AiOutlineMenu } from "react-icons/ai";
 import BackDrop from "../UiElements/Backdrop";
 import SideDrawer from "./SideDrawer";
 import logo from "../../assets/oie_o75FzJ35Mzez.png";
+import { Link } from "react-router-dom";
 
 function MainNavigation() {
   const [drawerIsOpen, setDrawerIsOpen] = useState(false);
@@ -12,7 +13,6 @@ function MainNavigation() {
     <div className={classes.mainNavigation}>
       {drawerIsOpen && (
         <BackDrop
-          show={drawerIsOpen}
           onClick={() => {
             setDrawerIsOpen(false);
           }}
@@ -26,7 +26,7 @@ function MainNavigation() {
         }}
       >
         <nav className={classes.drawerNav}>
-          <Navigation
+          <NavLinks
             onClick={() => {
               setDrawerIsOpen(false);
             }}
@@ -34,9 +34,14 @@ function MainNavigation() {
         </nav>
       </SideDrawer>
 
-      <img className={classes.logo} src={logo} alt="img-logo" />
+      <div>
+        <Link to={"/"}>
+          <img className={classes.logo} src={logo} alt="img-logo" />
+        </Link>
+      </div>
+
       <nav className={classes.bigScreen}>
-        <Navigation />
+        <NavLinks />
       </nav>
 
       <AiOutlineMenu

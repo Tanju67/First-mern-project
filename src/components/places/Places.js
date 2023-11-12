@@ -6,16 +6,25 @@ import usePagination from "../../shared/hooks/usePagination";
 
 function Places() {
   const [currentItems, pagination] = usePagination(6, data);
+  console.log(currentItems);
+
+  if (currentItems.length === 0) {
+    return (
+      <div className="noFound">
+        <h2>No places found</h2>
+      </div>
+    );
+  }
   return (
     <div className={classes.places}>
-      {currentItems.map((d) => (
+      {currentItems.map((item) => (
         <PlaceItem
-          key={d.id}
-          id={d.id}
-          title={d.title}
-          description={d.description}
-          image={d.image}
-          userImg={d.creatorImg}
+          key={item.id}
+          id={item.id}
+          title={item.title}
+          description={item.description}
+          image={item.image}
+          userImg={item.creatorImg}
         />
       ))}
       {pagination}
