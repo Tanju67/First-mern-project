@@ -8,9 +8,10 @@ import Button from "../../shared/UiElements/Button";
 
 function UserPlaces({ places, detail }) {
   const userId = useParams().uid;
-  console.log(userId);
+  const placeId = useParams().pid;
+  console.log(userId, placeId);
   const userPlace = places.filter((place) => place.creator === userId);
-  if (userPlace.length === 0) {
+  if (!detail && userPlace.length === 0) {
     return (
       <div className={classes.page}>
         <Profile image={places[0].creatorImg} />
