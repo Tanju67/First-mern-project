@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useReducer, useState } from "react";
+import React from "react";
 import Input from "../../shared/UiElements/Input";
 import LoginImg from "../../assets/undraw_secure_login_pdn4.svg";
 import Button from "../../shared/UiElements/Button";
@@ -8,54 +8,21 @@ import {
   VALIDATOR_EMAIL,
   VALIDATOR_MINLENGTH,
 } from "../../shared/util/validators";
-
-const formReducer = (state, action) => {
-  switch (action.type) {
-    case "EMAIL":
-      return {
-        ...state,
-        email: { value: action.payload, isValid: action.isValid },
-      };
-
-    case "PASSWORD":
-      return {
-        ...state,
-        password: { value: action.payload, isValid: action.isValid },
-      };
-
-    case "VALID":
-      return {
-        ...state,
-        isValid: state.email.isValid && state.password.isValid,
-      };
-
-    default:
-      return state;
-  }
-};
+import { useForm } from "../../shared/hooks/form-hook";
 
 function Login() {
-  const [formState, dispatch] = useReducer(formReducer, {
+  const [inputHandler, formState] = useForm({
     email: { value: "", isValid: false },
     password: { value: "", isValid: false },
     isValid: false,
   });
+
+  console.log(formState);
+
   const submithandler = (e) => {
     e.preventDefault();
     console.log(formState);
   };
-
-  const inputHandler = useCallback((id, value, isValid) => {
-    if (id === "email") {
-      dispatch({ type: "EMAIL", payload: value, isValid: isValid });
-    } else {
-      dispatch({ type: "PASSWORD", payload: value, isValid: isValid });
-    }
-  }, []);
-
-  useEffect(() => {
-    dispatch({ type: "VALID" });
-  }, [formState.email.isValid, formState.password.isValid]);
 
   return (
     <Form
@@ -73,6 +40,7 @@ function Login() {
         type="email"
         label="Email"
         placeholder="Email"
+        errorMsg="Please enter a valid email!"
         onInput={inputHandler}
         validators={[VALIDATOR_EMAIL()]}
       />
@@ -82,6 +50,7 @@ function Login() {
         type="password"
         label="Password"
         placeholder="Password"
+        errorMsg="Please enter a valid password!"
         onInput={inputHandler}
         validators={[VALIDATOR_MINLENGTH(6)]}
       />

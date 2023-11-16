@@ -1,0 +1,27 @@
+.addPlace img {
+  width: 80%;
+}
+
+.addPlace form {
+  flex: 2;
+  background-color: #f2f2f2;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.addPlace h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.addPlace p {
+  font-size: 1.4rem;
+  color: #999;
+  margin-bottom: 1rem;
+}
+
+.addPlace button {
+  display: block;
+  width: 100%;
+}

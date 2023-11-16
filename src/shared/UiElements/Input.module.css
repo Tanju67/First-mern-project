@@ -6,7 +6,8 @@
   font-size: 1.2rem;
 }
 
-.formControl input {
+.formControl input,
+textarea {
   padding: 1rem;
   border: 1px solid #ccc;
   outline: none;
@@ -19,4 +20,9 @@
 
 .formControl label {
   font-weight: bold;
+}
+
+.formControl .error {
+  color: red;
+  font-size: 1.2rem;
 }

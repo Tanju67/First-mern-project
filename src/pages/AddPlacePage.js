@@ -1,7 +1,8 @@
 import React from "react";
+import AddPlace from "../components/add-place/AddPlace";
 
 function AddPlacePage() {
-  return <div>AddPlacePage</div>;
+  return <AddPlace />;
 }
 
 export default AddPlacePage;

@@ -40,6 +40,7 @@ function Register() {
         type="text"
         label="Name"
         placeholder="Name"
+        errorMsg="Please enter a valid name!"
         onInput={inputHandler}
         validators={[VALIDATOR_MINLENGTH(6)]}
       />
@@ -49,6 +50,7 @@ function Register() {
         type="email"
         label="Email"
         placeholder="Email"
+        errorMsg="Please enter a valid email!"
         onInput={inputHandler}
         validators={[VALIDATOR_EMAIL()]}
       />
@@ -58,6 +60,7 @@ function Register() {
         type="password"
         label="Password"
         placeholder="Password"
+        errorMsg="Please enter a valid password!"
         onInput={inputHandler}
         validators={[VALIDATOR_MINLENGTH(6)]}
       />
