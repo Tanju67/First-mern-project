@@ -21,6 +21,7 @@ function Places() {
         <PlaceItem
           key={item.id}
           id={item.id}
+          address={item.address}
           title={item.title}
           description={item.description}
           image={item.image}

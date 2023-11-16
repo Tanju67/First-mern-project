@@ -4,21 +4,18 @@ import Input from "../../shared/UiElements/Input";
 import { useForm } from "../../shared/hooks/form-hook";
 import PlaceImg from "../../assets/undraw_augmented_reality_re_f0qd.svg";
 import classes from "./AddPlace.module.css";
-import {
-  VALIDATOR_MINLENGTH,
-  VALIDATOR_REQUIRE,
-} from "../../shared/util/validators";
+import { VALIDATOR_REQUIRE } from "../../shared/util/validators";
 import Button from "../../shared/UiElements/Button";
 
-function AddPlace() {
-  const [inputHandler, formState] = useForm({
-    title: { value: "", isValid: false },
-    address: { value: "", isValid: false },
-    description: { value: "", isValid: false },
-    isValid: false,
-  });
-
-  console.log(formState);
+function AddPlace(props) {
+  const [inputHandler, formState] = useForm(
+    props.initialState || {
+      title: { value: "", isValid: false },
+      address: { value: "", isValid: false },
+      description: { value: "", isValid: false },
+      isValid: false,
+    }
+  );
 
   const submithandler = (e) => {
     e.preventDefault();
@@ -40,6 +37,8 @@ function AddPlace() {
         errorMsg="Please enter a valid title!"
         onInput={inputHandler}
         validators={[VALIDATOR_REQUIRE()]}
+        valid={formState.title.isValid}
+        value={formState.title.value}
       />
       <Input
         id="address"
@@ -50,6 +49,8 @@ function AddPlace() {
         errorMsg="Please enter a valid address!"
         onInput={inputHandler}
         validators={[VALIDATOR_REQUIRE()]}
+        valid={formState.address.isValid}
+        value={formState.address.value}
       />
       <Input
         id="description"
@@ -60,9 +61,11 @@ function AddPlace() {
         errorMsg="Please enter a valid description!"
         onInput={inputHandler}
         validators={[VALIDATOR_REQUIRE()]}
+        valid={formState.description.isValid}
+        value={formState.description.value}
       />
       <Button disabled={!formState.isValid} type="submit">
-        Add New Place
+        {!props.initialState ? "Add New Place" : "Updata Place"}
       </Button>
     </Form>
   );

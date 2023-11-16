@@ -31,6 +31,8 @@ function UserPlaces({ places, detail }) {
         {detail && (
           <UserPlaceItem
             key={places[0].id}
+            id={places[0].id}
+            address={places[0].address}
             title={places[0].title}
             description={places[0].description}
             image={places[0].image}
@@ -42,7 +44,9 @@ function UserPlaces({ places, detail }) {
             return (
               <UserPlaceItem
                 key={place.id}
+                id={place.id}
                 title={place.title}
+                address={place.address}
                 description={place.description}
                 image={place.image}
               />

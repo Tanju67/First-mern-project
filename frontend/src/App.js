@@ -8,6 +8,7 @@ import PageNotFound from "./pages/PageNotFound";
 import MainNavigation from "./shared/Navigation/MainNavigation";
 import PlaceDetailPage from "./pages/PlaceDetailPage";
 import AddPlacePage from "./pages/AddPlacePage";
+import UpdatePlacePage from "./pages/UpdatePlacePage";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/places/:pid" element={<PlaceDetailPage />} />
         <Route path="/user-places/:uid" element={<UserPlacesPage />} />
+        <Route path="/user-places/edit/:pid" element={<UpdatePlacePage />} />
         <Route path="/places" element={<PlacesPage />} />
         <Route path="/add-place" element={<AddPlacePage />} />
         <Route path="*" element={<PageNotFound />} />

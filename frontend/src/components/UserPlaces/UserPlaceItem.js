@@ -4,6 +4,7 @@ import classes from "./UserPlaceItem.module.css";
 import Button from "../../shared/UiElements/Button";
 import Modal from "../../shared/UiElements/Modal";
 import Map from "../../shared/UiElements/Map";
+import { useParams } from "react-router-dom";
 
 function UserPlaceItem(props) {
   const [showModal, setShowModal] = useState(false);
@@ -30,10 +31,11 @@ function UserPlaceItem(props) {
             <img src={props.image} alt={props.title} />
             <h3>{props.title}</h3>
             <p>{props.description}</p>
+            <p>{props.address}</p>
             <hr />
             <div className={classes.action}>
               <Button onClick={displayModalHandler}>View on map</Button>
-              <Button>Edit</Button>
+              <Button to={`/user-places/edit/${props.id}`}>Edit</Button>
               <Button>Delete</Button>
             </div>
           </div>
