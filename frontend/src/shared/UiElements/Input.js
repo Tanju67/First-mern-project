@@ -68,7 +68,11 @@ function Input(props) {
       />
     );
   return (
-    <div className={classes.formControl}>
+    <div
+      className={`${classes.formControl} ${
+        !inputState.isValid && inputState.isTouched ? classes.invalid : ""
+      }`}
+    >
       <label htmlFor={props.id}>{props.label}</label>
       {element}
       {!inputState.isValid && inputState.isTouched && (

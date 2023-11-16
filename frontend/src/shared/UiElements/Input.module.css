@@ -26,3 +26,17 @@ textarea {
   color: red;
   font-size: 1.2rem;
 }
+
+.formControl.invalid label {
+  color: red;
+}
+
+.formControl.invalid input,
+.invalid textarea {
+  background-color: rgb(243, 204, 204);
+  border: 1px solid red;
+}
+
+.formControl.invalid input::placeholder {
+  color: #fff;
+}

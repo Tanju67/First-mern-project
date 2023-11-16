@@ -4,7 +4,10 @@ import Input from "../../shared/UiElements/Input";
 import { useForm } from "../../shared/hooks/form-hook";
 import PlaceImg from "../../assets/undraw_augmented_reality_re_f0qd.svg";
 import classes from "./AddPlace.module.css";
-import { VALIDATOR_MINLENGTH } from "../../shared/util/validators";
+import {
+  VALIDATOR_MINLENGTH,
+  VALIDATOR_REQUIRE,
+} from "../../shared/util/validators";
 import Button from "../../shared/UiElements/Button";
 
 function AddPlace() {
@@ -36,7 +39,7 @@ function AddPlace() {
         placeholder="Title"
         errorMsg="Please enter a valid title!"
         onInput={inputHandler}
-        validators={[VALIDATOR_MINLENGTH(6)]}
+        validators={[VALIDATOR_REQUIRE()]}
       />
       <Input
         id="address"
@@ -46,7 +49,7 @@ function AddPlace() {
         placeholder="Address"
         errorMsg="Please enter a valid address!"
         onInput={inputHandler}
-        validators={[VALIDATOR_MINLENGTH(6)]}
+        validators={[VALIDATOR_REQUIRE()]}
       />
       <Input
         id="description"
@@ -56,7 +59,7 @@ function AddPlace() {
         placeholder="Description"
         errorMsg="Please enter a valid description!"
         onInput={inputHandler}
-        validators={[VALIDATOR_MINLENGTH(6)]}
+        validators={[VALIDATOR_REQUIRE()]}
       />
       <Button disabled={!formState.isValid} type="submit">
         Add New Place
