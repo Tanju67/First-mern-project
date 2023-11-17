@@ -1,13 +1,22 @@
+.register {
+  color: #fff;
+}
+.register a {
+  color: deepskyblue;
+}
+
 .register img {
   width: 60%;
 }
 
 .register form {
   flex: 2;
-  background-color: #f2f2f2;
+  background-color: #3f3d56;
   padding: 2rem;
   display: flex;
   flex-direction: column;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
 }
 
 .register h2 {
@@ -17,7 +26,7 @@
 
 .register p {
   font-size: 1.4rem;
-  color: #999;
+
   margin-bottom: 1rem;
 }
 

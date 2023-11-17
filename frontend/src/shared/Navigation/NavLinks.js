@@ -63,7 +63,8 @@ function NavLinks(props) {
       {!authCtx.isLoggedIn && (
         <li>
           <Button
-            className={({ isActive }) => (isActive ? classes.active : "")}
+            className={`${classes.loginBtn} ${({ isActive }) =>
+              isActive ? classes.active : ""}`}
             to={"/login"}
           >
             Login

@@ -1,13 +1,21 @@
+.login {
+  color: #fff;
+}
+.login a {
+  color: deepskyblue;
+}
 .login img {
   width: 80%;
 }
 
 .login form {
   flex: 2;
-  background-color: #f2f2f2;
+  background-color: #3f3d56;
   padding: 2rem;
   display: flex;
   flex-direction: column;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
 }
 .login h2 {
   text-align: center;
@@ -17,7 +25,6 @@
 .login p {
   font-size: 1.4rem;
   margin-bottom: 2rem;
-  color: #999;
 }
 
 .login button {

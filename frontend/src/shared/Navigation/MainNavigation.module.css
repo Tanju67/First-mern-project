@@ -3,13 +3,17 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-
+  background-color: #3f3d56;
   padding: 1rem 5rem;
-  color: black;
+  color: #fff;
+}
+.mainNavigation a {
+  color: #fff;
 }
 
 .logo {
   height: 6rem;
+  background-color: #fff;
 }
 
 .menu {
@@ -34,7 +38,7 @@
 }
 
 .drawerNav ul li a {
-  color: #000;
+  color: #fff;
   font-size: 2rem;
 }
 

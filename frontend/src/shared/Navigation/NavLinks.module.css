@@ -62,6 +62,10 @@
   justify-content: space-between;
   align-items: center;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  transition: all 0.3s;
+}
+.logout:hover {
+  background-color: #b6b1ff;
 }
 
 .hoverProfile {
@@ -95,4 +99,11 @@
 .hoverProfile a:hover,
 .hoverProfile p:hover {
   background-color: black;
+}
+.loginBtn {
+  transition: all 0.3s;
+}
+
+.loginBtn:hover {
+  background-color: #b6b1ff;
 }

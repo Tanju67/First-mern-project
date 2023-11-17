@@ -9,6 +9,7 @@
   margin-right: 1rem;
   text-decoration: none;
   display: inline-block;
+  transition: all 0.3s;
 }
 
 .button:focus {
@@ -17,8 +18,8 @@
 
 .button:hover,
 .button:active {
-  background: #3f3d56;
-  border-color: #3f3d56;
+  background: #8982ff;
+  border-color: #8982ff;
 }
 
 .button--inverse {
