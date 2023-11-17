@@ -6,6 +6,13 @@ import data from "../../data/data";
 function UpdatePlace() {
   const placeId = useParams().pid;
   const selectedPlace = data.filter((d) => d.id === placeId);
+  if (selectedPlace.length === 0) {
+    return (
+      <div className="center">
+        <h2>No place found.</h2>
+      </div>
+    );
+  }
   console.log(selectedPlace);
   const initialState = {
     title: { value: selectedPlace[0].title, isValid: true },

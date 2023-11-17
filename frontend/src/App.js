@@ -9,23 +9,43 @@ import MainNavigation from "./shared/Navigation/MainNavigation";
 import PlaceDetailPage from "./pages/PlaceDetailPage";
 import AddPlacePage from "./pages/AddPlacePage";
 import UpdatePlacePage from "./pages/UpdatePlacePage";
+import { AuthContext } from "./shared/context/auth-context";
+import { useState } from "react";
+import ProfilePage from "./pages/ProfilePage";
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const loginHandler = () => {
+    setIsLoggedIn(true);
+  };
+  const logoutHandler = () => {
+    setIsLoggedIn(false);
+  };
   return (
-    <BrowserRouter>
-      <MainNavigation />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/places/:pid" element={<PlaceDetailPage />} />
-        <Route path="/user-places/:uid" element={<UserPlacesPage />} />
-        <Route path="/user-places/edit/:pid" element={<UpdatePlacePage />} />
-        <Route path="/places" element={<PlacesPage />} />
-        <Route path="/add-place" element={<AddPlacePage />} />
-        <Route path="*" element={<PageNotFound />} />
-      </Routes>
-    </BrowserRouter>
+    <AuthContext.Provider
+      value={{
+        isLoggedIn: isLoggedIn,
+        login: loginHandler,
+        logout: logoutHandler,
+      }}
+    >
+      <BrowserRouter>
+        <MainNavigation />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/places/:pid" element={<PlaceDetailPage />} />
+          <Route path="/user-places/:uid" element={<UserPlacesPage />} />
+          <Route path="/user-places/edit/:pid" element={<UpdatePlacePage />} />
+          <Route path="/places" element={<PlacesPage />} />
+          <Route path="/profile/:uid" element={<ProfilePage />} />
+          <Route path="/add-place" element={<AddPlacePage />} />
+          <Route path="*" element={<PageNotFound />} />
+        </Routes>
+      </BrowserRouter>
+    </AuthContext.Provider>
   );
 }
 

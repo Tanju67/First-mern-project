@@ -25,7 +25,7 @@ function AddPlace(props) {
     <Form
       onSubmit={submithandler}
       className={classes.addPlace}
-      title="Add Place"
+      title={!props.initialState ? "Add Place" : "Update Place"}
       img={PlaceImg}
     >
       <Input

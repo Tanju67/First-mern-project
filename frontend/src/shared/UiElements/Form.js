@@ -14,9 +14,11 @@ function Form(props) {
           </p>
           <div>{props.children}</div>
         </form>
-        <div className={classes.imgBox}>
-          <img src={props.img} alt={props.title} />
-        </div>
+        {props.img && (
+          <div className={classes.imgBox}>
+            <img src={props.img} alt={props.title} />
+          </div>
+        )}
       </Card>
     </div>
   );

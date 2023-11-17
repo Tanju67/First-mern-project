@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import Input from "../../shared/UiElements/Input";
 import LoginImg from "../../assets/undraw_secure_login_pdn4.svg";
 import Button from "../../shared/UiElements/Button";
@@ -9,8 +9,10 @@ import {
   VALIDATOR_MINLENGTH,
 } from "../../shared/util/validators";
 import { useForm } from "../../shared/hooks/form-hook";
+import { AuthContext } from "../../shared/context/auth-context";
 
 function Login() {
+  const authCtx = useContext(AuthContext);
   const [inputHandler, formState] = useForm({
     email: { value: "", isValid: false },
     password: { value: "", isValid: false },
@@ -21,7 +23,7 @@ function Login() {
 
   const submithandler = (e) => {
     e.preventDefault();
-    console.log(formState);
+    authCtx.login();
   };
 
   return (

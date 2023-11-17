@@ -4,16 +4,29 @@ import classes from "./UserPlaceItem.module.css";
 import Button from "../../shared/UiElements/Button";
 import Modal from "../../shared/UiElements/Modal";
 import Map from "../../shared/UiElements/Map";
-import { useParams } from "react-router-dom";
 
 function UserPlaceItem(props) {
   const [showModal, setShowModal] = useState(false);
+  const [deleteModal, setDeleteModal] = useState(false);
+
   const displayModalHandler = () => {
     setShowModal(true);
   };
 
   const closeModalHandler = () => {
     setShowModal(false);
+  };
+
+  const showDeleteModalHandler = () => {
+    setDeleteModal(true);
+  };
+
+  const closeDeleteModalHandler = () => {
+    setDeleteModal(false);
+  };
+
+  const confirmDeleteHandler = () => {
+    setDeleteModal(false);
   };
   return (
     <>
@@ -24,6 +37,22 @@ function UserPlaceItem(props) {
         footer={<Button onClick={closeModalHandler}>Close</Button>}
       >
         <Map center={{ lat: 15, lng: 15 }} zoom={6} />
+      </Modal>
+      <Modal
+        show={deleteModal}
+        onCancel={closeDeleteModalHandler}
+        header="Are You Sure?"
+        footer={
+          <>
+            <Button onClick={closeDeleteModalHandler}>Cancel</Button>
+            <Button onClick={confirmDeleteHandler}>Delete</Button>
+          </>
+        }
+      >
+        <p className={classes.deleteModalText}>
+          Do you want to proceed and delete this place? Please note that it
+          can't be undone thereafter.
+        </p>
       </Modal>
       <li>
         <Card className={classes.place}>
@@ -36,7 +65,7 @@ function UserPlaceItem(props) {
             <div className={classes.action}>
               <Button onClick={displayModalHandler}>View on map</Button>
               <Button to={`/user-places/edit/${props.id}`}>Edit</Button>
-              <Button>Delete</Button>
+              <Button onClick={showDeleteModalHandler}>Delete</Button>
             </div>
           </div>
         </Card>

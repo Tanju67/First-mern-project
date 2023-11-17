@@ -20,3 +20,8 @@
   margin: 1rem 0;
   justify-content: center;
 }
+
+.deleteModalText {
+  text-align: center;
+  margin-top: 14rem;
+}

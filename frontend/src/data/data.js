@@ -13,8 +13,8 @@ const data = [
   },
   {
     id: "p2",
-    title: "Ankara",
-    address: "Ankara",
+    title: "istanbul",
+    address: "istanbul",
     coordinates: { lat: 45, lng: 45 },
     description: "Harika",
     image:
