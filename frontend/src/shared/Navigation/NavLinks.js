@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import classes from "./NavLinks.module.css";
 import Button from "../UiElements/Button";
 import { AuthContext } from "../context/auth-context";
@@ -11,9 +11,11 @@ import { CSSTransition } from "react-transition-group";
 function NavLinks(props) {
   const authCtx = useContext(AuthContext);
   const [logoutMenu, setLogoutMenu] = useState(false);
+  const navigate = useNavigate();
 
   const menuCloseHandler = () => {
     setLogoutMenu(false);
+    navigate("/");
     authCtx.logout();
   };
 
@@ -97,7 +99,7 @@ function NavLinks(props) {
                 <p onClick={menuCloseHandler}>
                   <RiLogoutCircleLine /> Logout
                 </p>
-                <Link onClick={profileHandler} to={"/profile"}>
+                <Link onClick={profileHandler} to={"/profile/u2"}>
                   <CgProfile /> Profile
                 </Link>
               </div>

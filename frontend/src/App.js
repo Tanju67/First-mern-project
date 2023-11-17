@@ -22,6 +22,33 @@ function App() {
   const logoutHandler = () => {
     setIsLoggedIn(false);
   };
+
+  let routes;
+
+  if (isLoggedIn) {
+    routes = (
+      <>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/places/:pid" element={<PlaceDetailPage />} />
+        <Route path="/user-places/:uid" element={<UserPlacesPage />} />
+        <Route path="/user-places/edit/:pid" element={<UpdatePlacePage />} />
+        <Route path="/places" element={<PlacesPage />} />
+        <Route path="/profile/:uid" element={<ProfilePage />} />
+        <Route path="/add-place" element={<AddPlacePage />} />
+        <Route path="*" element={<PageNotFound />} />
+      </>
+    );
+  } else {
+    routes = (
+      <>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/places" element={<PlacesPage />} />
+        <Route path="*" element={<PageNotFound />} />
+      </>
+    );
+  }
   return (
     <AuthContext.Provider
       value={{
@@ -32,18 +59,7 @@ function App() {
     >
       <BrowserRouter>
         <MainNavigation />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/places/:pid" element={<PlaceDetailPage />} />
-          <Route path="/user-places/:uid" element={<UserPlacesPage />} />
-          <Route path="/user-places/edit/:pid" element={<UpdatePlacePage />} />
-          <Route path="/places" element={<PlacesPage />} />
-          <Route path="/profile/:uid" element={<ProfilePage />} />
-          <Route path="/add-place" element={<AddPlacePage />} />
-          <Route path="*" element={<PageNotFound />} />
-        </Routes>
+        <Routes>{routes}</Routes>
       </BrowserRouter>
     </AuthContext.Provider>
   );
