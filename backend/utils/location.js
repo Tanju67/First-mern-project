@@ -9,7 +9,6 @@ const getCoordsForAddress = async (address) => {
 
   const data = await response.json();
   const locData = data[0];
-  console.log(locData);
 
   if (!locData || locData.status === "ZERO_RESULTS") {
     const error = new HttpError(
