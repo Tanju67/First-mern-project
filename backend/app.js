@@ -10,6 +10,8 @@ const placeRoutes = require("./routes/place-routes");
 const profileRoutes = require("./routes/profile-routes");
 
 const app = express();
+//it is necessary to parse json input
+app.use(express.json());
 
 //routes-middleware
 app.use("/api/v1/auth", userRoutes);
