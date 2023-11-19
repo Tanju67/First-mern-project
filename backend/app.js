@@ -1,22 +1,44 @@
 const express = require("express");
+const dotenv = require("dotenv");
+dotenv.config();
 
 const connectDB = require("./utils/db");
 
 //routes-import
-const authRoutes = require("./routes/auth-routes");
-const placeRoutes = require("./routes/place-routes");
 const userRoutes = require("./routes/user-routes");
+const placeRoutes = require("./routes/place-routes");
+const profileRoutes = require("./routes/profile-routes");
 
 const app = express();
 
 //routes-middleware
-app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/auth", userRoutes);
 
 app.use("/api/v1/place", placeRoutes);
 
-app.use("/api/v1/profile", userRoutes);
+app.use("/api/v1/profile", profileRoutes);
 
-app.listen(5000, () => {
+//false route middleware
+app.use((req, res, next) => {
+  const error = new HttpError("Could not find this route", 404);
+  throw error;
+});
+
+//error middle ware
+app.use((err, req, res, next) => {
+  // if (req.file) {
+  //   fs.unlink(req.file.path, (err) => {
+  //     console.log(err);
+  //   });
+  // }
+  if (res.headerSent) {
+    return next(err);
+  }
+  res.status(err.code || 500);
+  res.json({ message: err.message || "An unknown error occured!" });
+});
+
+app.listen(process.env.PORT || 8000, () => {
   connectDB();
-  console.log("app works on port 5000");
+  console.log(`app works on port:${process.env.PORT}`);
 });
