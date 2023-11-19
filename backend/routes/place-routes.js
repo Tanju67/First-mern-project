@@ -10,7 +10,7 @@ router.get("/user/:id", placeControllers.getUserPlaces);
 
 router.get("/:id", placeControllers.getPlaceById);
 
-router.post("/", placeControllers.addPlace);
+router.post("/", placeControllers.createPlace);
 
 router.patch("/:id", placeControllers.updatePlace);
 

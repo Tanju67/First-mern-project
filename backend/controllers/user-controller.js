@@ -101,6 +101,7 @@ exports.register = async (req, res, next) => {
 
 //LOGOUT get /api/v1/logout
 exports.logout = async (req, res, next) => {
+  //remove cookie
   try {
     res
       .clearCookie("jwtToken", { sameSite: "none", secure: true })

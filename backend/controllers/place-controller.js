@@ -4,7 +4,9 @@ exports.getUserPlaces = (req, res, next) => {};
 
 exports.getPlaceById = (req, res, next) => {};
 
-exports.addPlace = (req, res, next) => {};
+exports.createPlace = (req, res, next) => {
+  const { title, description, address, creator } = req.body;
+};
 
 exports.updatePlace = (req, res, next) => {};
 
