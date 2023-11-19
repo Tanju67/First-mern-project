@@ -99,5 +99,14 @@ exports.register = async (req, res, next) => {
   res.status(201).json({ userId: newUser.id, email: newUser.email });
 };
 
-//LOGOUT
-exports.logout = (req, res, next) => {};
+//LOGOUT get /api/v1/logout
+exports.logout = async (req, res, next) => {
+  try {
+    res
+      .clearCookie("jwtToken", { sameSite: "none", secure: true })
+      .status(200)
+      .send("User logged out successfully!");
+  } catch (error) {
+    return next(new HttpError("Something went wrong", 500));
+  }
+};
