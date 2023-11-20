@@ -5,6 +5,7 @@ const HttpError = require("../models/error");
 
 //GET ALL PLACES get /api/v1/place
 exports.getAllPlaces = async (req, res, next) => {
+  console.log(req.userData);
   // find all places on db
   let allPlaces = [];
   try {
@@ -118,6 +119,47 @@ exports.createPlace = async (req, res, next) => {
   res.status(201).json({ message: "Place created successfully!" });
 };
 
-exports.updatePlace = (req, res, next) => {};
+//UPDATE PLACE patch /api/v1/place/:id
+exports.updatePlace = async (req, res, next) => {
+  //get place id from req.params
+  const placeId = req.params.id;
+
+  //get inputs from req.body
+  const { title, description } = req.body;
+
+  //find place on db in order to update
+  let place;
+  try {
+    place = await Place.findById(placeId);
+  } catch (error) {
+    return next(new HttpError("Something went wrong.Try again.", 500));
+  }
+
+  //if there isn't any place, send error msg
+  if (!place) {
+    return next(
+      new HttpError("Could not find  place for the provided id.", 404)
+    );
+  }
+
+  //check place created ba logged in user
+  if (place.creator.toString() !== req.userData.userId.toString()) {
+    return next(new HttpError("You are not allowed to edit this place", 401));
+  }
+
+  //updata place
+  place.title = title;
+  place.description = description;
+
+  //save changment on db
+  try {
+    place.save();
+  } catch (error) {
+    return next(new HttpError("Something went wrong. :(", 500));
+  }
+
+  //send response
+  res.status(200).json(place);
+};
 
 exports.deletePlace = (req, res, next) => {};
