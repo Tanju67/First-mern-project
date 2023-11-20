@@ -1,4 +1,5 @@
 const express = require("express");
+const checkAuth = require("../middleware/check-auth");
 
 const placeControllers = require("../controllers/place-controller");
 
@@ -9,6 +10,8 @@ router.get("/", placeControllers.getAllPlaces);
 router.get("/user/:id", placeControllers.getUserPlaces);
 
 router.get("/:id", placeControllers.getPlaceById);
+
+router.use(checkAuth);
 
 router.post("/", placeControllers.createPlace);
 

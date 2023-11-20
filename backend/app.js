@@ -1,4 +1,5 @@
 const express = require("express");
+const cookieParser = require("cookie-parser");
 const dotenv = require("dotenv");
 dotenv.config();
 
@@ -12,6 +13,7 @@ const profileRoutes = require("./routes/profile-routes");
 const app = express();
 //it is necessary to parse json input
 app.use(express.json());
+app.use(cookieParser());
 
 //routes-middleware
 app.use("/api/v1/auth", userRoutes);
