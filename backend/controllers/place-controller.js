@@ -3,11 +3,50 @@ const User = require("../models/User");
 const getCoordsForAddress = require("../utils/location");
 const HttpError = require("../models/error");
 
-exports.getAllPlaces = (req, res, next) => {};
+//GET ALL PLACES get /api/v1/place
+exports.getAllPlaces = async (req, res, next) => {
+  // find all places on db
+  let allPlaces = [];
+  try {
+    allPlaces = await Place.find({});
+  } catch (error) {
+    return next(new HttpError("Something went wrong.Try again.", 500));
+  }
+
+  //if there isn't any place, send error msg
+  if (allPlaces.length === 0) {
+    return next(new HttpError("Could not find  places", 404));
+  }
+
+  //send response
+  res.status(200).json({ places: allPlaces });
+};
 
 exports.getUserPlaces = (req, res, next) => {};
 
-exports.getPlaceById = (req, res, next) => {};
+//GET SINGLE PLACE get /api/v1/place/:id
+exports.getPlaceById = async (req, res, next) => {
+  //get place id from req.params
+  const placeId = req.params.id;
+
+  //find place for this id on db
+  let place;
+  try {
+    place = await Place.findById({ _id: placeId });
+  } catch (error) {
+    return next(new HttpError("Something went wrong.Try again.", 500));
+  }
+
+  //if there isn't any place, send error msg
+  if (!place) {
+    return next(
+      new HttpError("Could not find  place for the provided id.", 404)
+    );
+  }
+
+  //send response
+  res.status(200).json(place);
+};
 
 //CREATE PLACE post api/v1/place
 exports.createPlace = async (req, res, next) => {
