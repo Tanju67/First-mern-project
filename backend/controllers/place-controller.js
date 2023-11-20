@@ -3,6 +3,7 @@ const User = require("../models/User");
 const getCoordsForAddress = require("../utils/location");
 const HttpError = require("../models/error");
 
+////////////////////////////////////////
 //GET ALL PLACES get /api/v1/place
 exports.getAllPlaces = async (req, res, next) => {
   console.log(req.userData);
@@ -23,6 +24,7 @@ exports.getAllPlaces = async (req, res, next) => {
   res.status(200).json({ places: allPlaces });
 };
 
+////////////////////////////////////////
 //GET USER PLACES get /api/v1/place/user/:id
 exports.getUserPlaces = async (req, res, next) => {
   //get user id from req.params
@@ -45,6 +47,7 @@ exports.getUserPlaces = async (req, res, next) => {
   res.status(200).json({ places: userPlaces });
 };
 
+////////////////////////////////////////
 //GET SINGLE PLACE get /api/v1/place/:id
 exports.getPlaceById = async (req, res, next) => {
   //get place id from req.params
@@ -69,6 +72,7 @@ exports.getPlaceById = async (req, res, next) => {
   res.status(200).json({ place: place });
 };
 
+////////////////////////////////////////
 //CREATE PLACE post api/v1/place
 exports.createPlace = async (req, res, next) => {
   //get inputs from req.body
@@ -119,6 +123,7 @@ exports.createPlace = async (req, res, next) => {
   res.status(201).json({ message: "Place created successfully!" });
 };
 
+////////////////////////////////////////
 //UPDATE PLACE patch /api/v1/place/:id
 exports.updatePlace = async (req, res, next) => {
   //get place id from req.params
@@ -155,11 +160,26 @@ exports.updatePlace = async (req, res, next) => {
   try {
     place.save();
   } catch (error) {
-    return next(new HttpError("Something went wrong. :(", 500));
+    return next(new HttpError("Something went wrong.", 500));
   }
 
   //send response
   res.status(200).json(place);
 };
 
-exports.deletePlace = (req, res, next) => {};
+////////////////////////////////////////
+//DELETE PLACE delete /api/v1/place/:id
+exports.deletePlace = async (req, res, next) => {
+  //get place id from req.params
+  const placeId = req.params.id;
+
+  // find place for this id on db and delete
+  try {
+    await Place.findByIdAndDelete(placeId);
+  } catch (error) {
+    return next(new HttpError("Something went wrong.Try again.", 500));
+  }
+
+  //send response
+  res.status(200).json({ message: "Place deleted" });
+};

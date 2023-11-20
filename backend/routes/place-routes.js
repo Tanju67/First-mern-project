@@ -7,11 +7,11 @@ const router = express.Router();
 
 router.get("/", placeControllers.getAllPlaces);
 
+router.use(checkAuth);
+
 router.get("/user/:id", placeControllers.getUserPlaces);
 
 router.get("/:id", placeControllers.getPlaceById);
-
-router.use(checkAuth);
 
 router.post("/", placeControllers.createPlace);
 
