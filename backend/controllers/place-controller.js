@@ -22,7 +22,27 @@ exports.getAllPlaces = async (req, res, next) => {
   res.status(200).json({ places: allPlaces });
 };
 
-exports.getUserPlaces = (req, res, next) => {};
+//GET USER PLACES get /api/v1/place/user/:id
+exports.getUserPlaces = async (req, res, next) => {
+  //get user id from req.params
+  const userId = req.params.id;
+
+  //find places for user id on db
+  let userPlaces = [];
+  try {
+    userPlaces = await Place.find({ creator: userId });
+  } catch (error) {
+    return next(new HttpError("Something went wrong.Try again.", 500));
+  }
+
+  //if there isn't any place, send error msg
+  if (userPlaces.length === 0) {
+    return next(new HttpError("Could not find  places", 404));
+  }
+
+  //send response
+  res.status(200).json({ places: userPlaces });
+};
 
 //GET SINGLE PLACE get /api/v1/place/:id
 exports.getPlaceById = async (req, res, next) => {
@@ -45,7 +65,7 @@ exports.getPlaceById = async (req, res, next) => {
   }
 
   //send response
-  res.status(200).json(place);
+  res.status(200).json({ place: place });
 };
 
 //CREATE PLACE post api/v1/place
