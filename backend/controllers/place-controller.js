@@ -2,6 +2,7 @@ const Place = require("../models/Place");
 const User = require("../models/User");
 const getCoordsForAddress = require("../utils/location");
 const HttpError = require("../models/error");
+const { validationResult } = require("express-validator");
 
 ////////////////////////////////////////
 //GET ALL PLACES get /api/v1/place
@@ -75,8 +76,16 @@ exports.getPlaceById = async (req, res, next) => {
 ////////////////////////////////////////
 //CREATE PLACE post api/v1/place
 exports.createPlace = async (req, res, next) => {
+  //validator result
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return next(
+      new HttpError("Invalid inputs passed,please check your data.", 422)
+    );
+  }
+
   //get inputs from req.body
-  const { title, description, address, creator } = req.body;
+  const { title, description, address } = req.body;
 
   //tronsform address to geocode
   let coordinates;
@@ -94,13 +103,13 @@ exports.createPlace = async (req, res, next) => {
       "https://cdn.britannica.com/50/198450-050-3554B2AF/Ankara-Turkey.jpg",
     address,
     location: coordinates,
-    creator,
+    creator: req.userData.userId,
   });
 
   //find user based on creator input
   let user;
   try {
-    user = await User.findById(creator);
+    user = await User.findById(req.userData.userId);
   } catch (error) {
     return next(new HttpError("Creating place failed,please try again.!", 500));
   }
@@ -126,6 +135,14 @@ exports.createPlace = async (req, res, next) => {
 ////////////////////////////////////////
 //UPDATE PLACE patch /api/v1/place/:id
 exports.updatePlace = async (req, res, next) => {
+  //validator result
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return next(
+      new HttpError("Invalid inputs passed,please check your data.", 422)
+    );
+  }
+
   //get place id from req.params
   const placeId = req.params.id;
 

@@ -1,10 +1,20 @@
+const { validationResult } = require("express-validator");
 const Profile = require("../models/profile");
 const HttpError = require("../models/error");
 
 exports.postUserprofile = async (req, res, next) => {
-  const { firstName, lastName, birthYear, country, address } = req.body;
-  console.log(req.userData.userId);
+  //validator result
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return next(
+      new HttpError("Invalid inputs passed,please check your data.", 422)
+    );
+  }
 
+  //get inputs from req.body
+  const { firstName, lastName, birthYear, country, address } = req.body;
+
+  //check if there is profile on db
   let profile;
   try {
     profile = await Profile.findOne({ creator: req.userData.userId });
@@ -15,6 +25,7 @@ exports.postUserprofile = async (req, res, next) => {
   }
 
   if (profile) {
+    //if there is profile on db,update
     profile.firstName = firstName;
     profile.lastName = lastName;
     profile.birthYear = birthYear;
@@ -29,6 +40,7 @@ exports.postUserprofile = async (req, res, next) => {
 
     res.status(201).json({ message: "Profile updated successfully." });
   } else {
+    //if there isn't profile on db,create
     const newProfile = new Profile({
       firstName,
       lastName,

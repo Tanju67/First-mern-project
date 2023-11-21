@@ -1,5 +1,6 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const { validationResult } = require("express-validator");
 const dotenv = require("dotenv");
 dotenv.config();
 
@@ -59,6 +60,13 @@ exports.login = async (req, res, next) => {
 
 //RGISTER post /api/v1/register
 exports.register = async (req, res, next) => {
+  //validator result
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return next(
+      new HttpError("Invalid inputs passed,please check your data.", 422)
+    );
+  }
   //get input from body
   const { name, email, password } = req.body;
 

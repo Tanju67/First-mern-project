@@ -1,4 +1,5 @@
 const express = require("express");
+const { check } = require("express-validator");
 
 const checkAuth = require("../middleware/check-auth");
 const profileControllers = require("../controllers/profile-controller");
@@ -7,6 +8,16 @@ const router = express.Router();
 
 router.use(checkAuth);
 
-router.post("/", profileControllers.postUserprofile);
+router.post(
+  "/",
+  [
+    check("firstName").not().isEmpty(),
+    check("lastName").not().isEmpty(),
+    check("birthYear").not().isEmpty(),
+    check("country").not().isEmpty(),
+    check("address").not().isEmpty(),
+  ],
+  profileControllers.postUserprofile
+);
 
 module.exports = router;
