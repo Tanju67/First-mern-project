@@ -30,7 +30,7 @@ const placeSchema = new mongoose.Schema(
     },
     creator: {
       type: mongoose.Types.ObjectId,
-      require: true,
+      required: true,
       ref: "User",
     },
   },
