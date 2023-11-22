@@ -19,4 +19,6 @@ router.post(
 
 router.get("/logout", userControllers.logout);
 
+router.get("/refetch", userControllers.refetch);
+
 module.exports = router;

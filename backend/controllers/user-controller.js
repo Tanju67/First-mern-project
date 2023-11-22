@@ -47,7 +47,7 @@ exports.login = async (req, res, next) => {
     token = jwt.sign(
       { userId: existingUser.id, email: existingUser.email },
       process.env.TOKEN_SECRET,
-      { expiresIn: "1h" }
+      { expiresIn: "3d" }
     );
   } catch (error) {
     return next(new HttpError("Something went wrong", 500));
@@ -118,4 +118,21 @@ exports.logout = async (req, res, next) => {
   } catch (error) {
     return next(new HttpError("Something went wrong", 500));
   }
+};
+
+//REFETCH USER get /api/v1/refetch
+exports.refetch = async (req, res, next) => {
+  const token = req.cookies.token;
+  jwt.verify(
+    token.jwtToken,
+    process.env.TOKEN_SECRET,
+    {},
+    async (err, data) => {
+      if (err) {
+        return next(new HttpError("Something went wrong", 500));
+      }
+      console.log(data);
+      res.status(200).json(data);
+    }
+  );
 };
