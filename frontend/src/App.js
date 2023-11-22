@@ -15,11 +15,14 @@ import ProfilePage from "./pages/ProfilePage";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userId, setUserId] = useState();
 
-  const loginHandler = () => {
+  const loginHandler = (uid) => {
+    setUserId(uid);
     setIsLoggedIn(true);
   };
   const logoutHandler = () => {
+    setUserId(null);
     setIsLoggedIn(false);
   };
 

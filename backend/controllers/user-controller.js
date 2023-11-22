@@ -104,7 +104,7 @@ exports.register = async (req, res, next) => {
   }
 
   //send response
-  res.status(201).json({ userId: newUser.id, email: newUser.email });
+  res.status(201).json({ msg: "New user created!" });
 };
 
 //LOGOUT get /api/v1/logout

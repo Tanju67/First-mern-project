@@ -17,6 +17,9 @@ const inputReducer = (state, action) => {
         isTouched: true,
       };
 
+    case "RESET":
+      return { value: "", isTouched: false, isValid: false };
+
     default:
       return state;
   }
