@@ -30,7 +30,7 @@ exports.login = async (req, res, next) => {
   try {
     isValidPassword = await bcrypt.compare(password, existingUser.password);
   } catch (error) {
-    new HttpError(
+    return new HttpError(
       "Could not log you in,please check your credentials and try again.",
       500
     );
@@ -114,17 +114,18 @@ exports.logout = async (req, res, next) => {
     res
       .clearCookie("jwtToken", { sameSite: "none", secure: true })
       .status(200)
-      .send("User logged out successfully!");
+      .json({ msg: "User logged out successfully!" });
   } catch (error) {
     return next(new HttpError("Something went wrong", 500));
   }
 };
 
 //REFETCH USER get /api/v1/refetch
-exports.refetch = async (req, res, next) => {
-  const token = req.cookies.token;
+exports.refetch = (req, res, next) => {
+  const token = req.cookies;
+  console.log(token);
   jwt.verify(
-    token.jwtToken,
+    token?.jwtToken,
     process.env.TOKEN_SECRET,
     {},
     async (err, data) => {

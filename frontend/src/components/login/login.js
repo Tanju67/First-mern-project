@@ -42,12 +42,11 @@ function Login() {
           email: formState.email.value,
           password: formState.password.value,
         }),
+        credentials: "include",
         headers: { "Content-Type": "application/json" },
-        credentials: "same-origin",
       });
 
       const data = await responseData.json();
-      console.log(data);
 
       if (!responseData.ok) {
         throw new Error(data.message);

@@ -7,16 +7,28 @@ import { AiOutlineMenu } from "react-icons/ai";
 import { CgProfile } from "react-icons/cg";
 import { RiLogoutCircleLine } from "react-icons/ri";
 import { CSSTransition } from "react-transition-group";
+import { url } from "../util/url";
 
 function NavLinks(props) {
   const authCtx = useContext(AuthContext);
   const [logoutMenu, setLogoutMenu] = useState(false);
   const navigate = useNavigate();
 
-  const menuCloseHandler = () => {
+  const menuCloseHandler = async () => {
     setLogoutMenu(false);
-    navigate("/");
-    authCtx.logout();
+    try {
+      const response = await fetch(url + `api/v1/auth/logout`, {
+        credentials: "include",
+      });
+      const data = await response.json();
+      console.log(data);
+      authCtx.logout();
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
+
+    // navigate("/");
   };
 
   const profileHandler = () => {

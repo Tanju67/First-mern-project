@@ -29,8 +29,13 @@ function App() {
 
   const getUser = async () => {
     try {
-      const response = await fetch(url + `api/v1/auth/fetch`);
+      const response = await fetch(url + `api/v1/auth/refetch`, {
+        credentials: "include",
+      });
       const data = await response.json();
+      if (data.userId) {
+        loginHandler(data.userId);
+      }
       console.log(data);
     } catch (error) {
       console.log(error);
@@ -73,6 +78,8 @@ function App() {
         isLoggedIn: isLoggedIn,
         login: loginHandler,
         logout: logoutHandler,
+        getUser: getUser,
+        userId: userId,
       }}
     >
       <BrowserRouter>
