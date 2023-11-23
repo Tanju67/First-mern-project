@@ -10,45 +10,15 @@ import PlaceDetailPage from "./pages/PlaceDetailPage";
 import AddPlacePage from "./pages/AddPlacePage";
 import UpdatePlacePage from "./pages/UpdatePlacePage";
 import { AuthContext } from "./shared/context/auth-context";
-import { useEffect, useState } from "react";
+import { useContext } from "react";
 import ProfilePage from "./pages/ProfilePage";
-import { url } from "./shared/util/url";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userId, setUserId] = useState();
-
-  const loginHandler = (uid) => {
-    setUserId(uid);
-    setIsLoggedIn(true);
-  };
-  const logoutHandler = () => {
-    setUserId(null);
-    setIsLoggedIn(false);
-  };
-
-  const getUser = async () => {
-    try {
-      const response = await fetch(url + `api/v1/auth/refetch`, {
-        credentials: "include",
-      });
-      const data = await response.json();
-      if (data.userId) {
-        loginHandler(data.userId);
-      }
-      console.log(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    getUser();
-  }, []);
+  const authCtx = useContext(AuthContext);
 
   let routes;
 
-  if (isLoggedIn) {
+  if (authCtx.isLoggedIn) {
     routes = (
       <>
         <Route path="/" element={<HomePage />} />
@@ -73,20 +43,12 @@ function App() {
     );
   }
   return (
-    <AuthContext.Provider
-      value={{
-        isLoggedIn: isLoggedIn,
-        login: loginHandler,
-        logout: logoutHandler,
-        getUser: getUser,
-        userId: userId,
-      }}
-    >
+    <>
       <BrowserRouter>
         <MainNavigation />
         <Routes>{routes}</Routes>
       </BrowserRouter>
-    </AuthContext.Provider>
+    </>
   );
 }
 
