@@ -19,7 +19,7 @@ router.post(
   "/",
   [
     check("title").not().isEmpty(),
-    check("description").isLength({ min: 5 }),
+    check("description").not().isEmpty(),
     check("address").not().isEmpty(),
   ],
   placeControllers.createPlace

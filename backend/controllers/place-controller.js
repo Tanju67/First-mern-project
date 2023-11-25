@@ -85,7 +85,7 @@ exports.createPlace = async (req, res, next) => {
   }
 
   //get inputs from req.body
-  const { title, description, address } = req.body;
+  const { title, address, description } = req.body;
 
   //tronsform address to geocode
   let coordinates;
