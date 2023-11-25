@@ -14,11 +14,12 @@ import { url } from "../../shared/util/url";
 import { useNavigate } from "react-router-dom";
 import ErrorModal from "../../shared/UiElements/LoadingSpinner/ErrorModal";
 import LoadingSpinner from "../../shared/UiElements/LoadingSpinner/LoadingSpinner";
+import { useHttpRequest } from "../../shared/hooks/useHttpRequest";
 
 function Login() {
   const authCtx = useContext(AuthContext);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const { isLoading, error, sendRequest, clearErrorHandler } = useHttpRequest();
+
   const navigate = useNavigate();
 
   const [inputHandler, formState] = useForm({
@@ -27,37 +28,23 @@ function Login() {
     isValid: false,
   });
 
-  const clearErrorHandler = () => {
-    setError(null);
-  };
-
   const submithandler = async (e) => {
     e.preventDefault();
 
-    try {
-      setIsLoading(true);
-      const responseData = await fetch(url + `api/v1/auth/login`, {
-        method: "POST",
-        body: JSON.stringify({
-          email: formState.email.value,
-          password: formState.password.value,
-        }),
-        credentials: "include",
-        headers: { "Content-Type": "application/json" },
-      });
-
-      const data = await responseData.json();
-
-      if (!responseData.ok) {
-        throw new Error(data.message);
+    sendRequest(
+      url + `api/v1/auth/login`,
+      "POST",
+      {
+        email: formState.email.value,
+        password: formState.password.value,
+      },
+      "include",
+      { "Content-Type": "application/json" },
+      (data) => {
+        authCtx.login(data.userId);
+        navigate("/");
       }
-      setIsLoading(false);
-      authCtx.login(data.userId);
-      navigate("/");
-    } catch (error) {
-      setError(error.message);
-      setIsLoading(false);
-    }
+    );
   };
 
   return (

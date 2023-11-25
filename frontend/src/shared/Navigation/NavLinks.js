@@ -17,18 +17,15 @@ function NavLinks(props) {
   const menuCloseHandler = async () => {
     setLogoutMenu(false);
     try {
-      const response = await fetch(url + `api/v1/auth/logout`, {
+      await fetch(url + `api/v1/auth/logout`, {
         credentials: "include",
       });
-      const data = await response.json();
-      console.log(data);
+
       authCtx.logout();
       navigate("/");
     } catch (error) {
       console.log(error);
     }
-
-    // navigate("/");
   };
 
   const profileHandler = () => {

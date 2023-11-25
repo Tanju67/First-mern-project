@@ -14,10 +14,10 @@ import { url } from "../../shared/util/url";
 import LoadingSpinner from "../../shared/UiElements/LoadingSpinner/LoadingSpinner";
 import ErrorModal from "../../shared/UiElements/LoadingSpinner/ErrorModal";
 import { useNavigate } from "react-router-dom";
+import { useHttpRequest } from "../../shared/hooks/useHttpRequest";
 
 function Register() {
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const { isLoading, error, sendRequest, clearErrorHandler } = useHttpRequest();
   const navigate = useNavigate();
   const [inputHandler, formState] = useForm({
     name: { value: "", isValid: false },
@@ -26,36 +26,23 @@ function Register() {
     isValid: false,
   });
 
-  const clearErrorHandler = () => {
-    setError(null);
-  };
-
   const submithandler = async (e) => {
     e.preventDefault();
 
-    try {
-      setIsLoading(true);
-      const responseData = await fetch(url + `api/v1/auth/register`, {
-        method: "POST",
-        body: JSON.stringify({
-          name: formState.name.value,
-          email: formState.email.value,
-          password: formState.password.value,
-        }),
-        headers: { "Content-Type": "application/json" },
-      });
-
-      const data = await responseData.json();
-
-      if (!responseData.ok) {
-        throw new Error(data.message);
+    sendRequest(
+      url + `api/v1/auth/register`,
+      "POST",
+      {
+        name: formState.name.value,
+        email: formState.email.value,
+        password: formState.password.value,
+      },
+      "include",
+      { "Content-Type": "application/json" },
+      () => {
+        navigate("/login");
       }
-      setIsLoading(false);
-      navigate("/login");
-    } catch (error) {
-      setError(error.message);
-      setIsLoading(false);
-    }
+    );
   };
   return (
     <>
