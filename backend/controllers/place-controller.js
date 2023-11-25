@@ -7,7 +7,6 @@ const { validationResult } = require("express-validator");
 ////////////////////////////////////////
 //GET ALL PLACES get /api/v1/place
 exports.getAllPlaces = async (req, res, next) => {
-  console.log(req.userData);
   // find all places on db
   let allPlaces = [];
   try {

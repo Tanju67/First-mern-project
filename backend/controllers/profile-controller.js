@@ -1,6 +1,7 @@
 const { validationResult } = require("express-validator");
 const Profile = require("../models/profile");
 const HttpError = require("../models/error");
+const User = require("../models/User");
 
 exports.postUserprofile = async (req, res, next) => {
   //validator result
@@ -31,6 +32,8 @@ exports.postUserprofile = async (req, res, next) => {
     profile.birthYear = birthYear;
     profile.country = country;
     profile.address = address;
+    profile.image =
+      "https://www.masslive.com/resizer/kNl3qvErgJ3B0Cu-WSBWFYc1B8Q=/arc-anglerfish-arc2-prod-advancelocal/public/W5HI6Y4DINDTNP76R6CLA5IWRU.jpeg";
 
     try {
       await profile.save();
@@ -47,15 +50,43 @@ exports.postUserprofile = async (req, res, next) => {
       birthYear,
       country,
       address,
+      image:
+        "https://www.masslive.com/resizer/kNl3qvErgJ3B0Cu-WSBWFYc1B8Q=/arc-anglerfish-arc2-prod-advancelocal/public/W5HI6Y4DINDTNP76R6CLA5IWRU.jpeg",
       creator: req.userData.userId,
     });
 
     try {
       await newProfile.save();
+      await User.findOneAndUpdate(
+        { _id: req.userData.userId },
+        { profile: newProfile._id }
+      );
     } catch (error) {
       new HttpError("Creating profile failed,please try again.", 500);
     }
 
     res.status(201).json({ message: "Profile created successfully." });
   }
+};
+
+//getProfileById GET api/v1/proofile/id
+exports.getProfileById = async (req, res, next) => {
+  //get user id from req.params
+  const userId = req.params.id;
+
+  //find profile for user id on db
+  let userProfile = [];
+  try {
+    userProfile = await Profile.find({ creator: userId });
+  } catch (error) {
+    return next(new HttpError("Something went wrong.Try again.", 500));
+  }
+
+  //if there isn't any profile, send error msg
+  if (userProfile.length === 0) {
+    return next(new HttpError("Could not find  profile", 404));
+  }
+
+  //send response
+  res.status(200).json({ profile: userProfile });
 };

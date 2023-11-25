@@ -1,26 +1,32 @@
 import React from "react";
-import data from "../../data/data";
 import PlaceItem from "./PlaceItem";
 import classes from "./Places.module.css";
 import usePagination from "../../shared/hooks/usePagination";
+import ErrorModal from "../../shared/UiElements/LoadingSpinner/ErrorModal";
+import LoadingSpinner from "../../shared/UiElements/LoadingSpinner/LoadingSpinner";
 
-function Places() {
+function Places(props) {
+  const data = props.data.length === 0 ? [] : props.data.places;
   const [currentItems, pagination] = usePagination(6, data);
-  console.log(currentItems);
 
   if (currentItems.length === 0) {
     return (
       <div className="noFound">
-        <h2>No places found</h2>
+        {props.isLoading && <LoadingSpinner asOverlay />}
+        {!props.isLoading && <h2>No places found</h2>}
       </div>
     );
   }
   return (
     <div className={classes.places}>
+      <ErrorModal error={props.error} onClear={props.clearErrorHandler} />
+      {props.isLoading && <LoadingSpinner asOverlay />}
       {currentItems.map((item) => (
         <PlaceItem
-          key={item.id}
-          id={item.id}
+          key={item._id}
+          id={item._id}
+          creator={item.creator}
+          date={item.createdAt}
           address={item.address}
           title={item.title}
           description={item.description}

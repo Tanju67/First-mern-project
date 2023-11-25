@@ -6,6 +6,8 @@ const profileControllers = require("../controllers/profile-controller");
 
 const router = express.Router();
 
+router.get("/:id", profileControllers.getProfileById);
+
 router.use(checkAuth);
 
 router.post(

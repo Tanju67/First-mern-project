@@ -94,7 +94,12 @@ exports.register = async (req, res, next) => {
   }
 
   //create new user
-  const newUser = new User({ name, email, password: hashedPassword });
+  const newUser = new User({
+    name,
+    email,
+    password: hashedPassword,
+    profile: [],
+  });
 
   //save db
   try {

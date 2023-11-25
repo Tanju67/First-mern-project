@@ -16,6 +16,13 @@ const userSchema = new mongoose.Schema(
       required: true,
       minlength: 6,
     },
+    profile: [
+      {
+        type: mongoose.Types.ObjectId,
+        required: true,
+        ref: "Profile",
+      },
+    ],
   },
   { timestamps: true }
 );
