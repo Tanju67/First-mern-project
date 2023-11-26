@@ -22,4 +22,6 @@ router.get("/logout", userControllers.logout);
 
 router.get("/refetch", userControllers.refetch);
 
+router.get("/user/:id", userControllers.getUserById);
+
 module.exports = router;

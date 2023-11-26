@@ -2,7 +2,7 @@ import { createContext, useEffect, useState } from "react";
 import { url } from "../util/url";
 
 export const AuthContext = createContext({
-  userId: null,
+  user: {},
   isLoggedIn: false,
   login: () => {},
   logout: () => {},
@@ -11,15 +11,15 @@ export const AuthContext = createContext({
 
 export const Provider = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userId, setUserId] = useState();
+  const [user, setUser] = useState();
 
-  const loginHandler = (uid) => {
-    setUserId(uid);
+  const loginHandler = (user) => {
+    setUser(user);
     setIsLoggedIn(true);
   };
 
   const logoutHandler = () => {
-    setUserId(null);
+    setUser({});
     setIsLoggedIn(false);
   };
 
@@ -30,7 +30,7 @@ export const Provider = (props) => {
       });
       const data = await response.json();
       if (data.userId) {
-        loginHandler(data.userId);
+        loginHandler(data);
       }
     } catch (error) {
       console.log(error);
@@ -48,7 +48,7 @@ export const Provider = (props) => {
         login: loginHandler,
         logout: logoutHandler,
         getUser: getUser,
-        userId: userId,
+        user: user,
       }}
     >
       {props.children}

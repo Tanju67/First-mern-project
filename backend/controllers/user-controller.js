@@ -15,7 +15,7 @@ exports.login = async (req, res, next) => {
   //find user on db
   let existingUser;
   try {
-    existingUser = await User.findOne({ email: email });
+    existingUser = await User.findOne({ email: email }).populate("profile");
   } catch (error) {
     return next(new HttpError("Login failed.Please try again!", 500));
   }
@@ -45,7 +45,11 @@ exports.login = async (req, res, next) => {
   let token;
   try {
     token = jwt.sign(
-      { userId: existingUser.id, email: existingUser.email },
+      {
+        userId: existingUser.id,
+        email: existingUser.email,
+        image: existingUser.profile[0].image,
+      },
       process.env.TOKEN_SECRET,
       { expiresIn: "3d" }
     );
@@ -125,7 +129,7 @@ exports.logout = async (req, res, next) => {
   }
 };
 
-//REFETCH USER get /api/v1/refetch
+//REFETCH USER get /api/v1/auth/refetch
 exports.refetch = (req, res, next) => {
   const token = req.cookies;
   console.log(token);
@@ -141,4 +145,24 @@ exports.refetch = (req, res, next) => {
       res.status(200).json(data);
     }
   );
+};
+
+//GET USER get /api/v1/auth/user/:id
+exports.getUserById = async (req, res, next) => {
+  const userId = req.params.id;
+
+  let user;
+  try {
+    user = await User.find({ _id: userId }).populate("profile");
+  } catch (error) {
+    return next(new HttpError("Something went wrong", 500));
+  }
+
+  if (!user) {
+    return next(new HttpError("User not found!", 404));
+  }
+
+  const { password, ...info } = user[0]._doc;
+
+  res.status(200).json(info);
 };

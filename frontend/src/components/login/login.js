@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import Input from "../../shared/UiElements/Input";
 import LoginImg from "../../assets/undraw_secure_login_pdn4.svg";
 import Button from "../../shared/UiElements/Button";
@@ -41,7 +41,7 @@ function Login() {
       "include",
       { "Content-Type": "application/json" },
       (data) => {
-        authCtx.login(data.userId);
+        authCtx.login(data.user);
         navigate("/");
       }
     );
