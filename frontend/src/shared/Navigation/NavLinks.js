@@ -8,11 +8,13 @@ import { CgProfile } from "react-icons/cg";
 import { RiLogoutCircleLine } from "react-icons/ri";
 import { CSSTransition } from "react-transition-group";
 import { url } from "../util/url";
+import personImg from "../../assets/person-icon-8.png";
 
 function NavLinks(props) {
   const authCtx = useContext(AuthContext);
   const [logoutMenu, setLogoutMenu] = useState(false);
   const navigate = useNavigate();
+  console.log(authCtx);
 
   const menuCloseHandler = async () => {
     setLogoutMenu(false);
@@ -91,7 +93,7 @@ function NavLinks(props) {
           >
             <div className={classes.imgBox}>
               <img
-                src="https://st4.depositphotos.com/10313122/24678/i/450/depositphotos_246788750-stock-photo-handsome-caucasian-man-isolated-against.jpg"
+                src={authCtx.user.image ? authCtx.user.image : personImg}
                 alt="profile"
               />
             </div>

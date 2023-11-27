@@ -48,7 +48,7 @@ exports.login = async (req, res, next) => {
       {
         userId: existingUser.id,
         email: existingUser.email,
-        image: existingUser.profile[0].image,
+        image: existingUser.profile[0]?.image || null,
       },
       process.env.TOKEN_SECRET,
       { expiresIn: "3d" }
