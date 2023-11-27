@@ -14,7 +14,6 @@ function NavLinks(props) {
   const authCtx = useContext(AuthContext);
   const [logoutMenu, setLogoutMenu] = useState(false);
   const navigate = useNavigate();
-  console.log(authCtx);
 
   const menuCloseHandler = async () => {
     setLogoutMenu(false);
@@ -55,7 +54,7 @@ function NavLinks(props) {
         <li>
           <NavLink
             className={({ isActive }) => (isActive ? classes.active : "")}
-            to={"/user-places/u2"}
+            to={`/user-places/${authCtx.user.userId}`}
           >
             My Places
           </NavLink>
@@ -92,10 +91,7 @@ function NavLinks(props) {
               isActive ? classes.active : ""}`}
           >
             <div className={classes.imgBox}>
-              <img
-                src={authCtx.user.image ? authCtx.user.image : personImg}
-                alt="profile"
-              />
+              <img src={authCtx.user.image || personImg} alt="profile" />
             </div>
             <AiOutlineMenu />
           </Button>

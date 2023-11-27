@@ -11,7 +11,7 @@ export const AuthContext = createContext({
 
 export const Provider = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState();
+  const [user, setUser] = useState({});
 
   const loginHandler = (user) => {
     setUser(user);

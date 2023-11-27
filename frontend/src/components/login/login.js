@@ -41,7 +41,12 @@ function Login() {
       "include",
       { "Content-Type": "application/json" },
       (data) => {
-        authCtx.login(data.user);
+        console.log(data);
+        authCtx.login({
+          userId: data.user._id,
+          name: data.user.name,
+          image: data.user.profile[0].image,
+        });
         navigate("/");
       }
     );

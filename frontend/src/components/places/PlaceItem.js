@@ -7,7 +7,6 @@ import personImg from "../../assets/person-icon-8.png";
 
 function PlaceItem(props) {
   const [profileData, setProfileData] = useState({});
-  console.log(profileData);
 
   const content = {
     name:
@@ -19,7 +18,6 @@ function PlaceItem(props) {
         ? profileData.profile[0].image
         : personImg,
   };
-  console.log(content);
 
   const date = new Date(props.date).toLocaleDateString("de-DE");
 
