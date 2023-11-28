@@ -45,7 +45,7 @@ function Login() {
         authCtx.login({
           userId: data.user._id,
           name: data.user.name,
-          image: data.user.profile[0].image,
+          image: data.user.profile[0]?.image,
         });
         navigate("/");
       }

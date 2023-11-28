@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import UserPlaces from "../components/UserPlaces/UserPlaces";
-import data from "../data/data";
 import { useParams } from "react-router-dom";
 import { useHttpRequest } from "../shared/hooks/useHttpRequest";
 import { url } from "../shared/util/url";
 
 function UserPlacesPage() {
   const { isLoading, error, sendRequest, clearErrorHandler } = useHttpRequest();
+
   const [userPlace, setUserPlace] = useState([]);
+
   const userId = useParams().uid;
   const placeId = useParams().pid;
 
@@ -19,11 +20,11 @@ function UserPlacesPage() {
       undefined,
       undefined,
       (data) => {
-        console.log(data);
         setUserPlace(data.places);
       }
     );
   }, []);
+
   return (
     <UserPlaces
       isLoading={isLoading}

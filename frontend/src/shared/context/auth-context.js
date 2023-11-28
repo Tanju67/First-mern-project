@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useCallback, useEffect, useState } from "react";
 import { url } from "../util/url";
 
 export const AuthContext = createContext({
@@ -23,7 +23,7 @@ export const Provider = (props) => {
     setIsLoggedIn(false);
   };
 
-  const getUser = async () => {
+  const getUser = useCallback(async () => {
     try {
       const response = await fetch(url + `api/v1/auth/refetch`, {
         credentials: "include",
@@ -35,7 +35,7 @@ export const Provider = (props) => {
     } catch (error) {
       console.log(error);
     }
-  };
+  }, []);
 
   useEffect(() => {
     getUser();

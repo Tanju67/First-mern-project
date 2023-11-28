@@ -84,7 +84,7 @@ exports.getProfileById = async (req, res, next) => {
 
   //if there isn't any profile, send error msg
   if (userProfile.length === 0) {
-    return next(new HttpError("Could not find  profile", 404));
+    return res.status(200).json({ profile: userProfile });
   }
 
   //send response

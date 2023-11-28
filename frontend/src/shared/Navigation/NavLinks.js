@@ -15,6 +15,8 @@ function NavLinks(props) {
   const [logoutMenu, setLogoutMenu] = useState(false);
   const navigate = useNavigate();
 
+  console.log(authCtx.user);
+
   const menuCloseHandler = async () => {
     setLogoutMenu(false);
     try {

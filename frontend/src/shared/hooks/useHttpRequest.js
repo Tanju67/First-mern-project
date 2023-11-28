@@ -38,6 +38,7 @@ export const useHttpRequest = () => {
       } catch (error) {
         setError(error.message);
         setIsLoading(false);
+        throw error;
       }
     },
     []
