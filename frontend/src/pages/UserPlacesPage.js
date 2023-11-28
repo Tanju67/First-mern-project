@@ -19,6 +19,7 @@ function UserPlacesPage() {
       undefined,
       undefined,
       (data) => {
+        console.log(data);
         setUserPlace(data.places);
       }
     );

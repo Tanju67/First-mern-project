@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Card from "../../shared/UiElements/Card";
 import classes from "./PlaceItem.module.css";
 import Button from "../../shared/UiElements/Button";
 import { url } from "../../shared/util/url";
 import personImg from "../../assets/person-icon-8.png";
+import { AuthContext } from "../../shared/context/auth-context";
 
 function PlaceItem(props) {
+  const authCtx = useContext(AuthContext);
   const [profileData, setProfileData] = useState({});
 
   const content = {
@@ -51,10 +53,14 @@ function PlaceItem(props) {
         <p>{props.description}</p>
         <p>{props.address}</p>
       </div>
-      <hr />
-      <div className={classes.actions}>
-        <Button to={props.id}>DETAIL</Button>
-      </div>
+      {authCtx.isLoggedIn && (
+        <>
+          <hr />
+          <div className={classes.actions}>
+            <Button to={props.id}>DETAIL</Button>
+          </div>
+        </>
+      )}
     </Card>
   );
 }

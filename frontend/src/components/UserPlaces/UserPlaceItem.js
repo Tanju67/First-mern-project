@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Card from "../../shared/UiElements/Card";
 import classes from "./UserPlaceItem.module.css";
 import Button from "../../shared/UiElements/Button";
 import Modal from "../../shared/UiElements/Modal";
 import Map from "../../shared/UiElements/Map";
+import { AuthContext } from "../../shared/context/auth-context";
 
 function UserPlaceItem(props) {
   const [showModal, setShowModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
+  const authCtx = useContext(AuthContext);
+  console.log(authCtx.user.userId, props.creator);
 
   const displayModalHandler = () => {
     setShowModal(true);
@@ -64,8 +67,12 @@ function UserPlaceItem(props) {
             <hr />
             <div className={classes.action}>
               <Button onClick={displayModalHandler}>View on map</Button>
-              <Button to={`/user-places/edit/${props.id}`}>Edit</Button>
-              <Button onClick={showDeleteModalHandler}>Delete</Button>
+              {authCtx.user.userId === props.creator && (
+                <>
+                  <Button to={`/user-places/edit/${props.id}`}>Edit</Button>
+                  <Button onClick={showDeleteModalHandler}>Delete</Button>
+                </>
+              )}
             </div>
           </div>
         </Card>

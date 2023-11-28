@@ -15,7 +15,6 @@ import LoadingSpinner from "../../shared/UiElements/LoadingSpinner/LoadingSpinne
 function Profile(props) {
   const { isLoading, error, sendRequest, clearErrorHandler } = useHttpRequest();
   const [user, setUser] = useState({});
-  console.log(user);
 
   useEffect(() => {
     sendRequest(
@@ -73,11 +72,13 @@ function Profile(props) {
               <IoEarthSharp /> {user.country}
             </p>
           )}
+          {props.sharedPlaceCount && (
+            <p>
+              <IoMdPhotos />
+              {props.sharedPlaceCount || "0"} Shared Photos
+            </p>
+          )}
 
-          <p>
-            <IoMdPhotos />
-            {props.sharedPlaceCount || "0"} Shared Photos
-          </p>
           <p></p>
         </div>
       </div>

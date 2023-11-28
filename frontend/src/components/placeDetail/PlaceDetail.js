@@ -1,12 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import UserPlaces from "../UserPlaces/UserPlaces";
 import data from "../../data/data";
 import { useParams } from "react-router-dom";
+import { useHttpRequest } from "../../shared/hooks/useHttpRequest";
+import { url } from "../../shared/util/url";
 
 function PlaceDetail() {
-  const placeId = useParams();
-  const place = data.filter((d) => d.id === placeId.pid);
+  const { isLoading, error, sendRequest, clearErrorHandler } = useHttpRequest();
+  const [place, setPlace] = useState([]);
+  const placeId = useParams().pid;
   console.log(place);
+
+  useEffect(() => {
+    sendRequest(
+      url + `api/v1/place/${placeId}`,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      (data) => {
+        console.log(data);
+        setPlace(data.place);
+      }
+    );
+  }, []);
+
   return <UserPlaces places={place} detail={true} />;
 }
 
