@@ -15,7 +15,7 @@ function Profile(props) {
   const { isLoading, error, sendRequest, clearErrorHandler } = useHttpRequest();
 
   const navigate = useNavigate();
-  console.log(props.profile);
+
   const [inputHandler, formState] = useForm(
     props.profile || {
       name: { value: "", isValid: false },

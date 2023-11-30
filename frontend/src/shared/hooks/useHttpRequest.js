@@ -26,11 +26,11 @@ export const useHttpRequest = () => {
           headers: headers,
         });
 
-        const data = await responseData.json();
-
         if (!responseData.ok) {
-          throw new Error(data.message);
+          throw new Error("Fetching data failed!");
         }
+
+        const data = await responseData.json();
 
         setIsLoading(false);
         callback(data);
@@ -38,7 +38,6 @@ export const useHttpRequest = () => {
       } catch (error) {
         setError(error.message);
         setIsLoading(false);
-        throw error;
       }
     },
     []

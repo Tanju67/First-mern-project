@@ -133,7 +133,7 @@ exports.logout = async (req, res, next) => {
 };
 
 //REFETCH USER get /api/v1/auth/refetch
-exports.refetch = (req, res, next) => {
+exports.refetch = async (req, res, next) => {
   const token = req.cookies;
   console.log(token);
   jwt.verify(
@@ -144,8 +144,19 @@ exports.refetch = (req, res, next) => {
       if (err) {
         return next(new HttpError("Something went wrong", 500));
       }
-      console.log(data);
-      res.status(200).json(data);
+
+      let user;
+      try {
+        user = await User.findOne({ email: data.email }).populate("profile");
+      } catch (error) {
+        return next(new HttpError("Something went wrong", 500));
+      }
+      console.log(user.profile[0]?.image);
+      res.status(200).json({
+        userId: data.userId,
+        email: data.email,
+        image: user.profile[0]?.image || null,
+      });
     }
   );
 };

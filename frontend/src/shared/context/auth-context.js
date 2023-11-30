@@ -3,6 +3,7 @@ import { url } from "../util/url";
 
 export const AuthContext = createContext({
   user: {},
+  setUser: () => {},
   isLoggedIn: false,
   login: () => {},
   logout: () => {},
@@ -35,7 +36,7 @@ export const Provider = (props) => {
     } catch (error) {
       console.log(error);
     }
-  }, []);
+  }, [user]);
 
   useEffect(() => {
     getUser();
@@ -49,6 +50,7 @@ export const Provider = (props) => {
         logout: logoutHandler,
         getUser: getUser,
         user: user,
+        setUser: setUser,
       }}
     >
       {props.children}

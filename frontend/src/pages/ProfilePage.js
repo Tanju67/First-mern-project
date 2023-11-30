@@ -20,6 +20,7 @@ function ProfilePage() {
           throw new Error("Something went wrong");
         }
         const data = await res.json();
+
         const initialState = {
           name: {
             value: data.profile[0]?.firstName,
@@ -43,7 +44,7 @@ function ProfilePage() {
           },
           isValid: data.profile.length > 0 ? true : false,
         };
-        console.log(data);
+
         setProfile(initialState);
         setIsLoading(false);
       } catch (error) {

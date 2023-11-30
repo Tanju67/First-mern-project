@@ -9,7 +9,6 @@ function PlaceDetail() {
   const { isLoading, error, sendRequest, clearErrorHandler } = useHttpRequest();
   const [place, setPlace] = useState([]);
   const placeId = useParams().pid;
-  console.log(place);
 
   useEffect(() => {
     sendRequest(
@@ -19,7 +18,6 @@ function PlaceDetail() {
       undefined,
       undefined,
       (data) => {
-        console.log(data);
         setPlace(data.place);
       }
     );
