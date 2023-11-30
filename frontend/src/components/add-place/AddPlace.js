@@ -26,8 +26,6 @@ function AddPlace(props) {
     }
   );
 
-  console.log(authCtx);
-
   const submithandler = (e) => {
     e.preventDefault();
 

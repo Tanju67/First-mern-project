@@ -56,6 +56,7 @@ function UserPlaces({ places, detail, isLoading, error, clearErrorHandler }) {
             description={places.description}
             image={places.image}
             creator={places.creator}
+            location={places.location}
           />
         )}
 
@@ -70,6 +71,7 @@ function UserPlaces({ places, detail, isLoading, error, clearErrorHandler }) {
                 description={place.description}
                 image={place.image}
                 creator={place.creator}
+                location={place.location}
               />
             );
           })}

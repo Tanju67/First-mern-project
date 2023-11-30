@@ -38,7 +38,7 @@ function UserPlaceItem(props) {
         header={props.title}
         footer={<Button onClick={closeModalHandler}>Close</Button>}
       >
-        <Map center={{ lat: 15, lng: 15 }} zoom={6} />
+        <Map center={props.location} zoom={6} />
       </Modal>
       <Modal
         show={deleteModal}
