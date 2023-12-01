@@ -26,23 +26,41 @@ function AddPlace(props) {
     }
   );
 
+  console.log(props.update);
+
   const submithandler = (e) => {
     e.preventDefault();
 
-    sendRequest(
-      url + `api/v1/place`,
-      "POST",
-      {
-        title: formState.title.value,
-        address: formState.address.value,
-        description: formState.description.value,
-      },
-      "include",
-      { "Content-Type": "application/json" },
-      () => {
-        navigate("/places");
-      }
-    );
+    if (props.update) {
+      sendRequest(
+        url + `api/v1/place/${props.placeId}`,
+        "PATCH",
+        {
+          title: formState.title.value,
+          description: formState.description.value,
+        },
+        "include",
+        { "Content-Type": "application/json" },
+        () => {
+          navigate("/places");
+        }
+      );
+    } else {
+      sendRequest(
+        url + `api/v1/place`,
+        "POST",
+        {
+          title: formState.title.value,
+          address: formState.address.value,
+          description: formState.description.value,
+        },
+        "include",
+        { "Content-Type": "application/json" },
+        () => {
+          navigate("/places");
+        }
+      );
+    }
   };
   return (
     <>
@@ -66,18 +84,20 @@ function AddPlace(props) {
           valid={formState.title.isValid}
           value={formState.title.value}
         />
-        <Input
-          id="address"
-          element="input"
-          type="text"
-          label="Address"
-          placeholder="Address"
-          errorMsg="Please enter a valid address!"
-          onInput={inputHandler}
-          validators={[VALIDATOR_REQUIRE()]}
-          valid={formState.address.isValid}
-          value={formState.address.value}
-        />
+        {!props.update && (
+          <Input
+            id="address"
+            element="input"
+            type="text"
+            label="Address"
+            placeholder="Address"
+            errorMsg="Please enter a valid address!"
+            onInput={inputHandler}
+            validators={[VALIDATOR_REQUIRE()]}
+            valid={formState.address.isValid}
+            value={formState.address.value}
+          />
+        )}
         <Input
           id="description"
           element="textarea"

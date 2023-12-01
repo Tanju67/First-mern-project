@@ -27,7 +27,7 @@ router.post(
 
 router.patch(
   "/:id",
-  [check("title").not().isEmpty(), check("description").isLength({ min: 5 })],
+  [check("title").not().isEmpty(), check("description").not().isEmpty()],
   placeControllers.updatePlace
 );
 
