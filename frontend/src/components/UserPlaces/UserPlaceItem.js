@@ -5,11 +5,17 @@ import Button from "../../shared/UiElements/Button";
 import Modal from "../../shared/UiElements/Modal";
 import Map from "../../shared/UiElements/Map";
 import { AuthContext } from "../../shared/context/auth-context";
+import { useHttpRequest } from "../../shared/hooks/useHttpRequest";
+import { url } from "../../shared/util/url";
+import { useNavigate } from "react-router-dom";
 
 function UserPlaceItem(props) {
+  const { isLoading, error, sendRequest, clearErrorHandler } = useHttpRequest();
+  const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
   const authCtx = useContext(AuthContext);
+  console.log(props);
 
   const displayModalHandler = () => {
     setShowModal(true);
@@ -28,7 +34,9 @@ function UserPlaceItem(props) {
   };
 
   const confirmDeleteHandler = () => {
+    sendRequest(url + `api/v1/place/${props.id}`, "DELETE");
     setDeleteModal(false);
+    navigate(`/`);
   };
   return (
     <>
@@ -38,7 +46,7 @@ function UserPlaceItem(props) {
         header={props.title}
         footer={<Button onClick={closeModalHandler}>Close</Button>}
       >
-        <Map center={props.location} zoom={6} />
+        <Map center={props.location} zoom={13} />
       </Modal>
       <Modal
         show={deleteModal}
@@ -59,17 +67,21 @@ function UserPlaceItem(props) {
       <li>
         <Card className={classes.place}>
           <div className={classes.placeBox}>
-            <img src={props.image} alt={props.title} />
+            <img src={url + props.image} alt={props.title} />
             <h3>{props.title}</h3>
-            <p>{props.description}</p>
-            <p>{props.address}</p>
+            <p className={classes.desc}>{props.description}</p>
+            <p className={classes.address}>{props.address}</p>
             <hr />
             <div className={classes.action}>
               <Button onClick={displayModalHandler}>View on map</Button>
               {authCtx.user.userId === props.creator && (
                 <>
-                  <Button to={`/user-places/edit/${props.id}`}>Edit</Button>
-                  <Button onClick={showDeleteModalHandler}>Delete</Button>
+                  <Button inverse to={`/user-places/edit/${props.id}`}>
+                    Edit
+                  </Button>
+                  <Button danger onClick={showDeleteModalHandler}>
+                    Delete
+                  </Button>
                 </>
               )}
             </div>

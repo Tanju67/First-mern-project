@@ -5,9 +5,10 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   padding: 1rem;
   text-align: center;
+  color: #666;
 }
 .profile p {
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -15,13 +16,16 @@
 }
 .profile p svg {
   font-size: 2.2rem;
+  color: #6c63ff;
 }
 .imgBox {
   height: 30rem;
 }
 
 .profile img {
-  height: 100%;
+  height: 30rem;
+  width: 100%;
+  object-fit: cover;
 }
 
 .informationBox {

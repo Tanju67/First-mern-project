@@ -91,7 +91,10 @@ function NavLinks(props) {
               isActive ? classes.active : ""}`}
           >
             <div className={classes.imgBox}>
-              <img src={authCtx.user.image || personImg} alt="profile" />
+              <img
+                src={authCtx.user.image ? url + authCtx.user.image : personImg}
+                alt="profile"
+              />
             </div>
             <AiOutlineMenu />
           </Button>

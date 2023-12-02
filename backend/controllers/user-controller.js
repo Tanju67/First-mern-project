@@ -151,7 +151,7 @@ exports.refetch = async (req, res, next) => {
       } catch (error) {
         return next(new HttpError("Something went wrong", 500));
       }
-      console.log(user.profile[0]?.image);
+
       res.status(200).json({
         userId: data.userId,
         email: data.email,

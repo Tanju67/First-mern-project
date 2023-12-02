@@ -1,3 +1,5 @@
+const fs = require("fs");
+
 const Place = require("../models/Place");
 const User = require("../models/User");
 const getCoordsForAddress = require("../utils/location");
@@ -10,7 +12,7 @@ exports.getAllPlaces = async (req, res, next) => {
   // find all places on db
   let allPlaces = [];
   try {
-    allPlaces = await Place.find({});
+    allPlaces = await Place.find({}).sort({ updatedAt: -1 });
   } catch (error) {
     return next(new HttpError("Something went wrong.Try again.", 500));
   }
@@ -75,6 +77,7 @@ exports.getPlaceById = async (req, res, next) => {
 ////////////////////////////////////////
 //CREATE PLACE post api/v1/place
 exports.createPlace = async (req, res, next) => {
+  console.log(req.file);
   //validator result
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -98,8 +101,7 @@ exports.createPlace = async (req, res, next) => {
   const newPlace = new Place({
     title,
     description,
-    image:
-      "https://cdn.britannica.com/50/198450-050-3554B2AF/Ankara-Turkey.jpg",
+    image: req.file.path,
     address,
     location: coordinates,
     creator: req.userData.userId,
@@ -190,11 +192,24 @@ exports.deletePlace = async (req, res, next) => {
   const placeId = req.params.id;
 
   // find place for this id on db and delete
+  let place;
   try {
-    await Place.findByIdAndDelete(placeId);
+    place = await Place.findByIdAndDelete(placeId);
   } catch (error) {
     return next(new HttpError("Something went wrong.Try again.", 500));
   }
+
+  if (!place) {
+    return next(
+      new HttpError("Could not find  place for the provided id.", 404)
+    );
+  }
+
+  const imagePath = place.image;
+
+  fs.unlink(imagePath, (err) => {
+    console.log(err);
+  });
 
   //send response
   res.status(200).json({ message: "Place deleted" });

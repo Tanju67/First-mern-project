@@ -12,23 +12,24 @@ import { useNavigate } from "react-router-dom";
 import ErrorModal from "../../shared/UiElements/LoadingSpinner/ErrorModal";
 import LoadingSpinner from "../../shared/UiElements/LoadingSpinner/LoadingSpinner";
 import { AuthContext } from "../../shared/context/auth-context";
+import ImageInput from "../../shared/UiElements/ImageInput";
 
 function AddPlace(props) {
-  const { isLoading, error, sendRequest, clearErrorHandler } = useHttpRequest();
+  const { isLoading, error, sendRequest, clearErrorHandler } =
+    useHttpRequest(true);
   const navigate = useNavigate();
   const authCtx = useContext(AuthContext);
   const [inputHandler, formState] = useForm(
     props.initialState || {
       title: { value: "", isValid: false },
       address: { value: "", isValid: false },
+      image: { value: "", isValid: false },
       description: { value: "", isValid: false },
       isValid: false,
     }
   );
 
-  console.log(props.update);
-
-  const submithandler = (e) => {
+  const submithandler = async (e) => {
     e.preventDefault();
 
     if (props.update) {
@@ -46,20 +47,24 @@ function AddPlace(props) {
         }
       );
     } else {
-      sendRequest(
-        url + `api/v1/place`,
-        "POST",
-        {
-          title: formState.title.value,
-          address: formState.address.value,
-          description: formState.description.value,
-        },
-        "include",
-        { "Content-Type": "application/json" },
-        () => {
-          navigate("/places");
-        }
-      );
+      try {
+        const formData = new FormData();
+        formData.append("title", formState.title.value);
+        formData.append("address", formState.address.value);
+        formData.append("description", formState.description.value);
+        formData.append("image", formState.image.value);
+        console.log(formData);
+        const res = await fetch(url + `api/v1/place`, {
+          credentials: "include",
+          method: "POST",
+          body: formData,
+        });
+        const data = await res.json();
+        console.log(data);
+        navigate("/places");
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
   return (
@@ -96,6 +101,16 @@ function AddPlace(props) {
             validators={[VALIDATOR_REQUIRE()]}
             valid={formState.address.isValid}
             value={formState.address.value}
+          />
+        )}
+        {!props.update && (
+          <ImageInput
+            id="image"
+            element="text"
+            label="Image"
+            placeholder="Upload image"
+            errorMsg="Please enter a valid image!"
+            onInput={inputHandler}
           />
         )}
         <Input

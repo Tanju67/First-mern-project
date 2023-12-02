@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 
-export const useHttpRequest = () => {
+export const useHttpRequest = (formData = false) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 

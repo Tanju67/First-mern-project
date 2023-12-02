@@ -1,3 +1,6 @@
+const fs = require("fs");
+const path = require("path");
+
 const express = require("express");
 const cookieParser = require("cookie-parser");
 // const cors = require("cors");
@@ -14,7 +17,8 @@ const profileRoutes = require("./routes/profile-routes");
 const app = express();
 //it is necessary to parse json input
 app.use(express.json());
-// app.use(cors({ origin: "http://localhost:3000/", credentials: true }));
+app.use("/upload/image", express.static(path.join("upload", "image")));
+//app.use(cors({ origin: "http://localhost:3000/", credentials: true }));
 app.use(cookieParser());
 
 app.use((req, res, next) => {
@@ -43,6 +47,11 @@ app.use((req, res, next) => {
 
 //error middle ware
 app.use((err, req, res, next) => {
+  if (req.file) {
+    fs.unlink(req.file.path, (err) => {
+      console.log(err);
+    });
+  }
   res.status(err.code || 500);
   res.json({ message: err.message || "An unknown error occured!" });
 });

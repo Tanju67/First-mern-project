@@ -32,8 +32,7 @@ exports.postUserprofile = async (req, res, next) => {
     profile.birthYear = birthYear;
     profile.country = country;
     profile.address = address;
-    profile.image =
-      "https://www.masslive.com/resizer/kNl3qvErgJ3B0Cu-WSBWFYc1B8Q=/arc-anglerfish-arc2-prod-advancelocal/public/W5HI6Y4DINDTNP76R6CLA5IWRU.jpeg";
+    profile.image = req.file.path;
 
     try {
       await profile.save();
@@ -50,8 +49,7 @@ exports.postUserprofile = async (req, res, next) => {
       birthYear,
       country,
       address,
-      image:
-        "https://www.masslive.com/resizer/kNl3qvErgJ3B0Cu-WSBWFYc1B8Q=/arc-anglerfish-arc2-prod-advancelocal/public/W5HI6Y4DINDTNP76R6CLA5IWRU.jpeg",
+      image: req.file.path,
       creator: req.userData.userId,
     });
 

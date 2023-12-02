@@ -5,6 +5,7 @@ import Button from "../../shared/UiElements/Button";
 import { url } from "../../shared/util/url";
 import personImg from "../../assets/person-icon-8.png";
 import { AuthContext } from "../../shared/context/auth-context";
+import { Link } from "react-router-dom";
 
 function PlaceItem(props) {
   const authCtx = useContext(AuthContext);
@@ -17,7 +18,7 @@ function PlaceItem(props) {
         : profileData.name,
     image:
       profileData.profile?.length > 0
-        ? profileData.profile[0].image
+        ? url + profileData.profile[0].image
         : personImg,
   };
 
@@ -39,7 +40,9 @@ function PlaceItem(props) {
       <div className={classes.userBox}>
         <div className={classes.userProfile}>
           <div className={classes.imgBox}>
-            <img src={content.image} alt={"user img"} />
+            <Link to={`/user-places/${props.creator}`}>
+              <img src={content.image} alt={"user img"} />
+            </Link>
           </div>
           <span>{content.name}</span>
         </div>
@@ -48,15 +51,15 @@ function PlaceItem(props) {
         </div>
       </div>
       <div className={classes.placeBox}>
-        <img src={props.image} alt={props.title} />
+        <img src={url + props.image} alt={props.title} />
         <h3>{props.title}</h3>
-        <p>{props.description}</p>
-        <p>{props.address}</p>
+        <p className={classes.desc}>{props.description}</p>
+        <p className={classes.address}>{props.address}</p>
       </div>
       {authCtx.isLoggedIn && (
         <>
-          <hr />
           <div className={classes.actions}>
+            <hr />
             <Button to={props.id}>DETAIL</Button>
           </div>
         </>

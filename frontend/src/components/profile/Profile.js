@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Form from "../../shared/UiElements/Form";
 import Input from "../../shared/UiElements/Input";
 import Button from "../../shared/UiElements/Button";
@@ -10,11 +10,16 @@ import ErrorModal from "../../shared/UiElements/LoadingSpinner/ErrorModal";
 import LoadingSpinner from "../../shared/UiElements/LoadingSpinner/LoadingSpinner";
 import { url } from "../../shared/util/url";
 import { useNavigate } from "react-router-dom";
+import ImageInput from "../../shared/UiElements/ImageInput";
 
 function Profile(props) {
-  const { isLoading, error, sendRequest, clearErrorHandler } = useHttpRequest();
-
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
+
+  const clearErrorHandler = () => {
+    setError(null);
+  };
 
   const [inputHandler, formState] = useForm(
     props.profile || {
@@ -23,28 +28,39 @@ function Profile(props) {
       birthyear: { value: "", isValid: false },
       birthcountry: { value: "", isValid: false },
       address: { value: "", isValid: false },
+      image: { value: "", isValid: false },
       isValid: false,
     }
   );
-  const submithandler = (e) => {
+  const submithandler = async (e) => {
     e.preventDefault();
+    const formdata = new FormData();
+    formdata.append("firstName", formState.name.value);
+    formdata.append("lastName", formState.lastname.value);
+    formdata.append("birthYear", formState.birthyear.value);
+    formdata.append("country", formState.birthcountry.value);
+    formdata.append("address", formState.address.value);
+    formdata.append("image", formState.image.value);
 
-    sendRequest(
-      url + `api/v1/profile`,
-      "POST",
-      {
-        firstName: formState.name.value,
-        lastName: formState.lastname.value,
-        birthYear: formState.birthyear.value,
-        country: formState.birthcountry.value,
-        address: formState.address.value,
-      },
-      "include",
-      { "Content-Type": "application/json" },
-      () => {
-        navigate("/");
+    try {
+      setIsLoading(true);
+      const res = await fetch(url + `api/v1/profile`, {
+        method: "POST",
+        body: formdata,
+        credentials: "include",
+      });
+      if (!res.ok) {
+        throw new Error("Fetching data failed!");
       }
-    );
+      const data = await res.json();
+      console.log(data);
+      setIsLoading(false);
+      navigate("/");
+    } catch (error) {
+      setError(error.message);
+      setIsLoading(false);
+      console.log(error);
+    }
   };
 
   return (
@@ -111,6 +127,14 @@ function Profile(props) {
           validators={[VALIDATOR_REQUIRE()]}
           valid={formState.address.isValid}
           value={formState.address.value}
+        />
+        <ImageInput
+          id="image"
+          element="text"
+          label="Image"
+          placeholder="Upload image"
+          errorMsg="Please enter a valid image!"
+          onInput={inputHandler}
         />
         <Button disabled={!formState.isValid} type="submit">
           {!props.profile.isValid ? "Add New Profile" : "Update Profile"}

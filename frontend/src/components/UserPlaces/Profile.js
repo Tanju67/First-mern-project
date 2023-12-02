@@ -69,10 +69,13 @@ function Profile(props) {
       <div className={classes.profile}>
         <div className={classes.imgBox}>
           {isLoading && <LoadingSpinner asOverlay />}
-          <img src={user.image || personImg} alt={props.title} />
+          <img
+            src={user.image ? url + user.image : personImg}
+            alt={props.title}
+          />
         </div>
         <div className={classes.informationBox}>
-          <p>
+          <p style={{ textTransform: "capitalize" }}>
             <IoPersonCircle />
             {user.name}
           </p>
@@ -88,12 +91,12 @@ function Profile(props) {
           )}
 
           {user.address && (
-            <p>
+            <p style={{ textTransform: "capitalize" }}>
               <FaRegAddressCard /> {user.address}
             </p>
           )}
           {user.country && (
-            <p>
+            <p style={{ textTransform: "capitalize" }}>
               <IoEarthSharp /> {user.country}
             </p>
           )}

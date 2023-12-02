@@ -3,6 +3,8 @@ const { check } = require("express-validator");
 
 const checkAuth = require("../middleware/check-auth");
 
+const fileUpload = require("../middleware/file-upload");
+
 const placeControllers = require("../controllers/place-controller");
 
 const router = express.Router();
@@ -17,6 +19,7 @@ router.get("/:id", placeControllers.getPlaceById);
 
 router.post(
   "/",
+  fileUpload.single("image"),
   [
     check("title").not().isEmpty(),
     check("description").not().isEmpty(),

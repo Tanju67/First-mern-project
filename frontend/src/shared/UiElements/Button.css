@@ -18,30 +18,32 @@
 
 .button:hover,
 .button:active {
-  background: #8982ff;
-  border-color: #8982ff;
+  background: #413b99;
+  border-color: #413b99;
 }
 
 .button--inverse {
   background: transparent;
-  color: #ff0055;
+  color: #557c55;
+  border-color: #557c55;
 }
 
 .button--inverse:hover,
 .button--inverse:active {
   color: white;
-  background: #ff0055;
+  background: #9ade7b;
+  border-color: #9ade7b;
 }
 
 .button--danger {
-  background: #830000;
-  border-color: #830000;
+  background: #ec2a51;
+  border-color: #ec2a51;
 }
 
 .button--danger:hover,
 .button--danger:active {
-  background: #f34343;
-  border-color: #f34343;
+  background: #a51d39;
+  border-color: #a51d39;
 }
 
 .button:disabled,

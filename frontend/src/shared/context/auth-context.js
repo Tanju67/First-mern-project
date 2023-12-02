@@ -29,12 +29,16 @@ export const Provider = (props) => {
       const response = await fetch(url + `api/v1/auth/refetch`, {
         credentials: "include",
       });
+
+      if (!response.ok) {
+        throw new Error("Data fetching failed!");
+      }
       const data = await response.json();
       if (data.userId) {
         loginHandler(data);
       }
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
     }
   }, [user]);
 
