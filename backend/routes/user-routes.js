@@ -24,4 +24,6 @@ router.get("/refetch", userControllers.refetch);
 
 router.get("/user/:id", userControllers.getUserById);
 
+router.delete("/user/:id", userControllers.deleteUser);
+
 module.exports = router;

@@ -7,13 +7,46 @@ import { AiOutlineMenu } from "react-icons/ai";
 import { CgProfile } from "react-icons/cg";
 import { RiLogoutCircleLine } from "react-icons/ri";
 import { CSSTransition } from "react-transition-group";
+import { FaDeleteLeft } from "react-icons/fa6";
 import { url } from "../util/url";
 import personImg from "../../assets/person-icon-8.png";
+import Modal from "../UiElements/Modal";
 
 function NavLinks(props) {
   const authCtx = useContext(AuthContext);
   const [logoutMenu, setLogoutMenu] = useState(false);
+  const [deleteModal, setDeleteModal] = useState(false);
   const navigate = useNavigate();
+
+  const closeDeleteModalHandler = () => {
+    setDeleteModal(false);
+  };
+
+  const showDeleteModalHandler = () => {
+    setLogoutMenu(false);
+    setDeleteModal(true);
+  };
+
+  const confirmDeleteHandler = async () => {
+    try {
+      const res = await fetch(url + `api/v1/auth/user/${authCtx.user.userId}`, {
+        credentials: "include",
+        method: "DELETE",
+      });
+
+      if (!res.ok) {
+        throw new Error("Something went wrong");
+      }
+      const data = await res.json();
+      setDeleteModal(false);
+      setLogoutMenu(false);
+      authCtx.logout();
+      navigate("/");
+      console.log(data);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
   const menuCloseHandler = async () => {
     setLogoutMenu(false);
@@ -34,6 +67,22 @@ function NavLinks(props) {
   };
   return (
     <ul className={classes.navLinks} onClick={props.onClick}>
+      <Modal
+        show={deleteModal}
+        onCancel={closeDeleteModalHandler}
+        header="Are You Sure?"
+        footer={
+          <>
+            <Button onClick={closeDeleteModalHandler}>Cancel</Button>
+            <Button onClick={confirmDeleteHandler}>Delete</Button>
+          </>
+        }
+      >
+        <p className={classes.deleteModalText}>
+          Do you want to proceed and delete this place? Please note that it
+          can't be undone thereafter.
+        </p>
+      </Modal>
       <li>
         <NavLink
           className={({ isActive }) => (isActive ? classes.active : "")}
@@ -113,6 +162,9 @@ function NavLinks(props) {
                 <Link onClick={profileHandler} to={"/profile/u2"}>
                   <CgProfile /> Profile
                 </Link>
+                <p onClick={showDeleteModalHandler}>
+                  <FaDeleteLeft /> Delete Your Account
+                </p>
               </div>
             </div>
           </CSSTransition>

@@ -75,7 +75,7 @@
   background-color: #6c63ff;
   top: 100%;
   right: 1rem;
-  width: 20rem;
+  width: 25rem;
   color: #fff;
   padding: 3rem;
   display: flex;
@@ -108,4 +108,9 @@
 
 .loginBtn:hover {
   background-color: #413b99;
+}
+
+.deleteModalText {
+  text-align: center;
+  margin-top: 16rem;
 }

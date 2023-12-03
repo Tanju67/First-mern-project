@@ -1,3 +1,5 @@
+const fs = require("fs");
+
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { validationResult } = require("express-validator");
@@ -5,6 +7,8 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const User = require("../models/User");
+const Profile = require("../models/profile");
+const Place = require("../models/Place");
 const HttpError = require("../models/error");
 
 //LOGIN post /api/v1/login
@@ -179,4 +183,66 @@ exports.getUserById = async (req, res, next) => {
   const { password, ...info } = user[0]._doc;
 
   res.status(200).json(info);
+};
+
+exports.deleteUser = async (req, res, next) => {
+  const userId = req.params.id;
+
+  let user;
+  try {
+    user = await User.findById(userId);
+    //console.log(user);
+  } catch (error) {
+    return next(new HttpError("Something went wrong", 500));
+  }
+
+  if (!user) {
+    return next(new HttpError("No user found for provided id", 404));
+  }
+
+  try {
+    await user.deleteOne();
+  } catch (error) {
+    return next(new HttpError("Something went wrong", 500));
+  }
+
+  let profile;
+  try {
+    profile = await Profile.find({ creator: userId });
+    //console.log(profile);
+  } catch (error) {
+    return next(new HttpError("Something went wrong", 500));
+  }
+
+  try {
+    if (profile.length > 0) {
+      await profile[0].deleteOne();
+      const imageProfilePath = profile[0].image;
+
+      fs.unlink(imageProfilePath, (err) => {
+        console.log(err);
+      });
+    }
+  } catch (error) {
+    return next(new HttpError("Something went wrong", 500));
+  }
+
+  let place;
+  try {
+    place = await Place.find({ creator: userId });
+    // console.log(place);
+
+    if (place.length > 0) {
+      await Place.deleteMany({ creator: userId });
+      place.map((p) => {
+        fs.unlink(p.image, (err) => {
+          console.log(err);
+        });
+      });
+    }
+  } catch (error) {
+    return next(new HttpError("Something went wrong", 500));
+  }
+
+  res.status(200).json({ msg: "User deleted successfully." });
 };
