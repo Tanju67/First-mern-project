@@ -12,6 +12,7 @@ import UpdatePlacePage from "./pages/UpdatePlacePage";
 import { AuthContext } from "./shared/context/auth-context";
 import { useContext } from "react";
 import ProfilePage from "./pages/ProfilePage";
+import Footer from "./shared/Footer/Footer";
 
 function App() {
   const authCtx = useContext(AuthContext);
@@ -47,6 +48,7 @@ function App() {
       <BrowserRouter>
         <MainNavigation />
         <Routes>{routes}</Routes>
+        <Footer />
       </BrowserRouter>
     </>
   );

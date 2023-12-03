@@ -1,0 +1,56 @@
+.footer {
+  display: flex;
+  justify-content: space-around;
+  color: #cd9351;
+  background-color: #3f3d56;
+  padding: 4rem;
+}
+
+.footer a {
+  color: #cd9351;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+.footer svg {
+  transition: all 0.3s;
+}
+
+.pages h2 {
+  margin-bottom: 1rem;
+}
+
+.pages ul li {
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: all 3s;
+}
+
+.pages ul li:hover a,
+.pages ul li:hover svg {
+  color: #fff;
+}
+
+.contact h2 {
+  margin-bottom: 1rem;
+}
+
+.contact p {
+  margin-bottom: 0.5rem;
+}
+
+.social h2 {
+  margin-bottom: 1rem;
+}
+
+.social svg {
+  width: 3rem;
+  height: 3rem;
+  margin-right: 1rem;
+  transition: all 0.3s;
+}
+
+.social svg:hover {
+  color: #fff;
+}

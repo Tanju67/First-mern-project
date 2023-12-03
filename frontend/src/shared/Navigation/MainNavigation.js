@@ -4,7 +4,7 @@ import NavLinks from "./NavLinks";
 import { AiOutlineMenu } from "react-icons/ai";
 import BackDrop from "../UiElements/Backdrop";
 import SideDrawer from "./SideDrawer";
-import logo from "../../assets/oie_o75FzJ35Mzez.png";
+import logo from "../../assets/oie_transparent (1).png";
 import { Link } from "react-router-dom";
 
 function MainNavigation() {
@@ -34,10 +34,11 @@ function MainNavigation() {
         </nav>
       </SideDrawer>
 
-      <div>
+      <div className={classes.logoBox}>
         <Link to={"/"}>
           <img className={classes.logo} src={logo} alt="img-logo" />
         </Link>
+        <span>Share</span>
       </div>
 
       <nav className={classes.bigScreen}>

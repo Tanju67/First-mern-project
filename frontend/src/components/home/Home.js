@@ -10,7 +10,7 @@ function Home() {
     <header className={classes.header}>
       <div className={classes["header_text-box"]}>
         <h1>
-          <span>Share Your</span>Travel
+          The<span>Wonderful</span>World
         </h1>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do

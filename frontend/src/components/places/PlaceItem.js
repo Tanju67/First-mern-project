@@ -40,7 +40,13 @@ function PlaceItem(props) {
       <div className={classes.userBox}>
         <div className={classes.userProfile}>
           <div className={classes.imgBox}>
-            <Link to={`/user-places/${props.creator}`}>
+            <Link
+              to={
+                authCtx.user?.userId
+                  ? `/user-places/${props.creator}`
+                  : "/login"
+              }
+            >
               <img src={content.image} alt={"user img"} />
             </Link>
           </div>
