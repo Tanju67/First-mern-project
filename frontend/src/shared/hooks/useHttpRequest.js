@@ -26,11 +26,11 @@ export const useHttpRequest = (formData = false) => {
           headers: headers,
         });
 
-        if (!responseData.ok) {
-          throw new Error("Fetching data failed!");
-        }
-
         const data = await responseData.json();
+
+        if (!responseData.ok) {
+          throw new Error(data.message);
+        }
 
         setIsLoading(false);
         callback(data);

@@ -35,13 +35,16 @@ function Profile(props) {
         throw new Error("Fetching data failed!");
       }
       const data = await res.json();
+      console.log(data);
 
-      authCtx.setUser((prev) => {
-        return {
-          ...prev,
-          image: data.profile.length > 0 ? data.profile[0].image : null,
-        };
-      });
+      if (authCtx.user.userId === data._id) {
+        authCtx.setUser((prev) => {
+          return {
+            ...prev,
+            image: data.profile.length > 0 ? data.profile[0].image : null,
+          };
+        });
+      }
 
       setUser({
         name:

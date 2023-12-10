@@ -11,11 +11,9 @@ import UserPlacePhoto from "./UserPlacePhoto";
 
 function UserPlaces({ places, detail, isLoading, error, clearErrorHandler }) {
   const userId = useParams().uid;
-  const placeId = useParams().pid;
   const [photoMode, setPhotoMod] = useState(false);
 
-  // const userPlace = places.filter((place) => place.creator === userId);
-  if (!detail && places.length === 0) {
+  if (places.length === 0) {
     return (
       <div className={classes.page}>
         <Profile id={userId} />
@@ -29,19 +27,6 @@ function UserPlaces({ places, detail, isLoading, error, clearErrorHandler }) {
     );
   }
 
-  if (detail && places.length === 0) {
-    return (
-      <div className={classes.page}>
-        <Profile id={userId} />
-        <div className={classes.placesContainer}>
-          <div className={classes.noFound}>
-            <h2 className="center">No place found.</h2>
-            <Button to={"/add-place"}>Add New Place</Button>
-          </div>
-        </div>
-      </div>
-    );
-  }
   return (
     <div className={classes.page}>
       {!detail && (
