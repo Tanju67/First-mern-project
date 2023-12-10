@@ -15,7 +15,6 @@ function UserPlaceItem(props) {
   const [showModal, setShowModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
   const authCtx = useContext(AuthContext);
-  console.log(props);
 
   const displayModalHandler = () => {
     setShowModal(true);

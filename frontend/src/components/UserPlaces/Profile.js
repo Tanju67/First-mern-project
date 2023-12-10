@@ -12,6 +12,7 @@ import { url } from "../../shared/util/url";
 import ErrorModal from "../../shared/UiElements/LoadingSpinner/ErrorModal";
 import LoadingSpinner from "../../shared/UiElements/LoadingSpinner/LoadingSpinner";
 import { AuthContext } from "../../shared/context/auth-context";
+import Button from "../../shared/UiElements/Button";
 
 function Profile(props) {
   const [user, setUser] = useState({});
@@ -107,7 +108,16 @@ function Profile(props) {
             </p>
           )}
 
-          <p></p>
+          {props.show && (
+            <div className={classes.btnBox}>
+              <Button onClick={() => props.onSetPhotoMode(true)}>
+                Only Photo
+              </Button>
+              <Button onClick={() => props.onSetPhotoMode(false)}>
+                Detail
+              </Button>
+            </div>
+          )}
         </div>
       </div>
     </>

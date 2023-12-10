@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import UserPlaceItem from "./UserPlaceItem";
 import classes from "./UserPlaces.module.css";
@@ -7,10 +7,12 @@ import { useParams } from "react-router-dom";
 import Button from "../../shared/UiElements/Button";
 import LoadingSpinner from "../../shared/UiElements/LoadingSpinner/LoadingSpinner";
 import ErrorModal from "../../shared/UiElements/LoadingSpinner/ErrorModal";
+import UserPlacePhoto from "./UserPlacePhoto";
 
 function UserPlaces({ places, detail, isLoading, error, clearErrorHandler }) {
   const userId = useParams().uid;
   const placeId = useParams().pid;
+  const [photoMode, setPhotoMod] = useState(false);
 
   // const userPlace = places.filter((place) => place.creator === userId);
   if (!detail && places.length === 0) {
@@ -42,7 +44,14 @@ function UserPlaces({ places, detail, isLoading, error, clearErrorHandler }) {
   }
   return (
     <div className={classes.page}>
-      {!detail && <Profile id={userId} sharedPlaceCount={places.length} />}
+      {!detail && (
+        <Profile
+          id={userId}
+          sharedPlaceCount={places.length}
+          show={true}
+          onSetPhotoMode={setPhotoMod}
+        />
+      )}
       {detail && <Profile id={places.creator} sharedPlaceCount={false} />}
       <ul className={classes.placesContainer}>
         <ErrorModal error={error} onClear={clearErrorHandler} />
@@ -61,6 +70,7 @@ function UserPlaces({ places, detail, isLoading, error, clearErrorHandler }) {
         )}
 
         {!detail &&
+          !photoMode &&
           places.map((place) => {
             return (
               <UserPlaceItem
@@ -75,6 +85,37 @@ function UserPlaces({ places, detail, isLoading, error, clearErrorHandler }) {
               />
             );
           })}
+        {!detail && photoMode && (
+          <UserPlacePhoto
+            columnFirst={places.map((place, i) => {
+              return (
+                i % 3 === 0 && {
+                  image: place.image,
+                  id: place._id,
+                  title: place.title,
+                }
+              );
+            })}
+            columnSecond={places.map((place, i) => {
+              return (
+                i % 3 === 1 && {
+                  image: place.image,
+                  id: place._id,
+                  title: place.title,
+                }
+              );
+            })}
+            columnThird={places.map((place, i) => {
+              return (
+                i % 3 === 2 && {
+                  image: place.image,
+                  id: place._id,
+                  title: place.title,
+                }
+              );
+            })}
+          />
+        )}
       </ul>
     </div>
   );

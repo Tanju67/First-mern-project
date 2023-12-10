@@ -40,7 +40,7 @@ export const Provider = (props) => {
     } catch (error) {
       console.log(error.message);
     }
-  }, [user]);
+  }, []);
 
   useEffect(() => {
     getUser();
