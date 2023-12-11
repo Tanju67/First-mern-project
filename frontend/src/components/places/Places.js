@@ -1,5 +1,5 @@
 import React from "react";
-import PlaceItem from "./PlaceItem";
+import Place from "./Place";
 import classes from "./Places.module.css";
 import usePagination from "../../shared/hooks/usePagination";
 import ErrorModal from "../../shared/UiElements/LoadingSpinner/ErrorModal";
@@ -22,7 +22,7 @@ function Places(props) {
       <ErrorModal error={props.error} onClear={props.clearErrorHandler} />
       {props.isLoading && <LoadingSpinner asOverlay />}
       {currentItems.map((item) => (
-        <PlaceItem
+        <Place
           key={item._id}
           id={item._id}
           creator={item.creator}

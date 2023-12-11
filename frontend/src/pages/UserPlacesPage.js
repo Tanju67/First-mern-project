@@ -10,7 +10,6 @@ function UserPlacesPage() {
   const [userPlace, setUserPlace] = useState([]);
 
   const userId = useParams().uid;
-  const placeId = useParams().pid;
 
   useEffect(() => {
     sendRequest(

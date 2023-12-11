@@ -1,13 +1,11 @@
 import React, { useState } from "react";
-
-import UserPlaceItem from "./UserPlaceItem";
 import classes from "./UserPlaces.module.css";
 import Profile from "./Profile";
 import { useParams } from "react-router-dom";
 import Button from "../../shared/UiElements/Button";
-import LoadingSpinner from "../../shared/UiElements/LoadingSpinner/LoadingSpinner";
-import ErrorModal from "../../shared/UiElements/LoadingSpinner/ErrorModal";
 import UserPlacePhoto from "./UserPlacePhoto";
+import UserPlacesDetail from "./UserPlacesDetail";
+import PlaceDetail from "./PlaceDetail";
 
 function UserPlaces({ places, detail, isLoading, error, clearErrorHandler }) {
   const userId = useParams().uid;
@@ -29,79 +27,30 @@ function UserPlaces({ places, detail, isLoading, error, clearErrorHandler }) {
 
   return (
     <div className={classes.page}>
-      {!detail && (
-        <Profile
-          id={userId}
-          sharedPlaceCount={places.length}
-          show={true}
-          onSetPhotoMode={setPhotoMod}
+      {!detail && !photoMode && (
+        <UserPlacesDetail
+          userId={userId}
+          places={places}
+          setPhotoMod={setPhotoMod}
         />
       )}
-      {detail && <Profile id={places.creator} sharedPlaceCount={false} />}
-      <ul className={classes.placesContainer}>
-        <ErrorModal error={error} onClear={clearErrorHandler} />
-        {isLoading && <LoadingSpinner asOverlay />}
-        {detail && (
-          <UserPlaceItem
-            key={places._id}
-            id={places._id}
-            address={places.address}
-            title={places.title}
-            description={places.description}
-            image={places.image}
-            creator={places.creator}
-            location={places.location}
-          />
-        )}
 
-        {!detail &&
-          !photoMode &&
-          places.map((place) => {
-            return (
-              <UserPlaceItem
-                key={place._id}
-                id={place._id}
-                title={place.title}
-                address={place.address}
-                description={place.description}
-                image={place.image}
-                creator={place.creator}
-                location={place.location}
-              />
-            );
-          })}
-        {!detail && photoMode && (
-          <UserPlacePhoto
-            columnFirst={places.map((place, i) => {
-              return (
-                i % 3 === 0 && {
-                  image: place.image,
-                  id: place._id,
-                  title: place.title,
-                }
-              );
-            })}
-            columnSecond={places.map((place, i) => {
-              return (
-                i % 3 === 1 && {
-                  image: place.image,
-                  id: place._id,
-                  title: place.title,
-                }
-              );
-            })}
-            columnThird={places.map((place, i) => {
-              return (
-                i % 3 === 2 && {
-                  image: place.image,
-                  id: place._id,
-                  title: place.title,
-                }
-              );
-            })}
-          />
-        )}
-      </ul>
+      {detail && (
+        <PlaceDetail
+          places={places}
+          error={error}
+          isLoading={isLoading}
+          clearErrorHandler={clearErrorHandler}
+        />
+      )}
+
+      {!detail && photoMode && (
+        <UserPlacePhoto
+          userId={userId}
+          places={places}
+          setPhotoMod={setPhotoMod}
+        />
+      )}
     </div>
   );
 }

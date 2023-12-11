@@ -4,32 +4,20 @@ import { useHttpRequest } from "../shared/hooks/useHttpRequest";
 import { url } from "../shared/util/url";
 
 function PlacesPage() {
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const { isLoading, error, sendRequest, clearErrorHandler } = useHttpRequest();
   const [placeData, setPlaceData] = useState([]);
 
-  const clearErrorHandler = () => {
-    setError(null);
-  };
-
-  const fetchPlacesData = async () => {
-    try {
-      setIsLoading(true);
-      const res = await fetch(url + `api/v1/place`);
-      if (!res.ok) {
-        throw new Error("Fetching data failed!");
-      }
-      const data = await res.json();
-      setPlaceData(data);
-      setIsLoading(false);
-    } catch (error) {
-      setIsLoading(false);
-      setError(error.message);
-    }
-  };
-
   useEffect(() => {
-    fetchPlacesData();
+    sendRequest(
+      url + `api/v1/place`,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      (data) => {
+        setPlaceData(data);
+      }
+    );
   }, []);
 
   return (

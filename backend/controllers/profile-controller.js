@@ -40,7 +40,9 @@ exports.postUserprofile = async (req, res, next) => {
       new HttpError("Updating profile failed,please try again.", 500);
     }
 
-    res.status(201).json({ message: "Profile updated successfully." });
+    res
+      .status(201)
+      .json({ message: "Profile updated successfully.", image: profile.image });
   } else {
     //if there isn't profile on db,create
     const newProfile = new Profile({
@@ -63,7 +65,12 @@ exports.postUserprofile = async (req, res, next) => {
       new HttpError("Creating profile failed,please try again.", 500);
     }
 
-    res.status(201).json({ message: "Profile created successfully." });
+    res
+      .status(201)
+      .json({
+        message: "Profile created successfully.",
+        image: newProfile.image,
+      });
   }
 };
 

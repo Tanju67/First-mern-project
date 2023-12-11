@@ -1,37 +1,29 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Form from "../../shared/UiElements/Form";
 import Input from "../../shared/UiElements/Input";
 import Button from "../../shared/UiElements/Button";
 import classes from "./Profile.module.css";
 import { useForm } from "../../shared/hooks/form-hook";
 import { VALIDATOR_REQUIRE } from "../../shared/util/validators";
-import { useHttpRequest } from "../../shared/hooks/useHttpRequest";
 import ErrorModal from "../../shared/UiElements/LoadingSpinner/ErrorModal";
 import LoadingSpinner from "../../shared/UiElements/LoadingSpinner/LoadingSpinner";
 import { url } from "../../shared/util/url";
 import { useNavigate } from "react-router-dom";
 import ImageInput from "../../shared/UiElements/ImageInput";
+import { AuthContext } from "../../shared/context/auth-context";
 
 function Profile(props) {
+  const authCtx = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+
+  const [inputHandler, formState] = useForm(props.initialState);
 
   const clearErrorHandler = () => {
     setError(null);
   };
 
-  const [inputHandler, formState] = useForm(
-    props.profile || {
-      name: { value: "", isValid: false },
-      lastname: { value: "", isValid: false },
-      birthyear: { value: "", isValid: false },
-      birthcountry: { value: "", isValid: false },
-      address: { value: "", isValid: false },
-      image: { value: "", isValid: false },
-      isValid: false,
-    }
-  );
   const submithandler = async (e) => {
     e.preventDefault();
     const formdata = new FormData();
@@ -49,11 +41,14 @@ function Profile(props) {
         body: formdata,
         credentials: "include",
       });
-      if (!res.ok) {
-        throw new Error("Fetching data failed!");
-      }
       const data = await res.json();
       console.log(data);
+      if (!res.ok) {
+        throw new Error(data.message);
+      }
+      authCtx.setUser((prev) => {
+        return { ...prev, image: data.image };
+      });
       setIsLoading(false);
       navigate("/");
     } catch (error) {
@@ -69,7 +64,9 @@ function Profile(props) {
       <Form
         onSubmit={submithandler}
         className={classes.profile}
-        title={!props.profile.isValid ? "Add New Profile" : "Update Profile"}
+        title={
+          !props.initialState.isValid ? "Add New Profile" : "Update Profile"
+        }
       >
         {isLoading && <LoadingSpinner asOverlay />}
         <Input
@@ -137,7 +134,7 @@ function Profile(props) {
           onInput={inputHandler}
         />
         <Button disabled={!formState.isValid} type="submit">
-          {!props.profile.isValid ? "Add New Profile" : "Update Profile"}
+          {!props.initialState.isValid ? "Add New Profile" : "Update Profile"}
         </Button>
       </Form>
     </>

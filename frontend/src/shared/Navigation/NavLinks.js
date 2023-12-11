@@ -11,9 +11,11 @@ import { FaDeleteLeft } from "react-icons/fa6";
 import { url } from "../util/url";
 import personImg from "../../assets/person-icon-8.png";
 import Modal from "../UiElements/Modal";
+import { useHttpRequest } from "../hooks/useHttpRequest";
 
 function NavLinks(props) {
   const authCtx = useContext(AuthContext);
+  const { sendRequest } = useHttpRequest();
   const [logoutMenu, setLogoutMenu] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
   const navigate = useNavigate();
@@ -28,38 +30,36 @@ function NavLinks(props) {
   };
 
   const confirmDeleteHandler = async () => {
-    try {
-      const res = await fetch(url + `api/v1/auth/user/${authCtx.user.userId}`, {
-        credentials: "include",
-        method: "DELETE",
-      });
-
-      if (!res.ok) {
-        throw new Error("Something went wrong");
+    sendRequest(
+      url + `api/v1/auth/user/${authCtx.user.userId}`,
+      "DELETE",
+      undefined,
+      undefined,
+      undefined,
+      (data) => {
+        setDeleteModal(false);
+        setLogoutMenu(false);
+        authCtx.logout();
+        navigate("/");
+        console.log(data);
       }
-      const data = await res.json();
-      setDeleteModal(false);
-      setLogoutMenu(false);
-      authCtx.logout();
-      navigate("/");
-      console.log(data);
-    } catch (error) {
-      console.log(error.message);
-    }
+    );
   };
 
   const menuCloseHandler = async () => {
     setLogoutMenu(false);
-    try {
-      await fetch(url + `api/v1/auth/logout`, {
-        credentials: "include",
-      });
 
-      authCtx.logout();
-      navigate("/");
-    } catch (error) {
-      console.log(error);
-    }
+    sendRequest(
+      url + `api/v1/auth/logout`,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      (data) => {
+        authCtx.logout();
+        navigate("/");
+      }
+    );
   };
 
   const profileHandler = () => {

@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import AddPlace from "../add-place/AddPlace";
 import { useParams } from "react-router-dom";
-import data from "../../data/data";
 import { useHttpRequest } from "../../shared/hooks/useHttpRequest";
 import { url } from "../../shared/util/url";
 
 function UpdatePlace() {
-  const { isLoading, error, sendRequest, clearErrorHandler } = useHttpRequest();
+  const { sendRequest } = useHttpRequest();
   const [place, setPlace] = useState([]);
   const placeId = useParams().pid;
 

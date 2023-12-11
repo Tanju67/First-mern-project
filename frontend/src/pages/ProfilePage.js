@@ -3,24 +3,22 @@ import Profile from "../components/profile/Profile";
 import { useHttpRequest } from "../shared/hooks/useHttpRequest";
 import { AuthContext } from "../shared/context/auth-context";
 import { url } from "../shared/util/url";
+import LoadingSpinner from "../shared/UiElements/LoadingSpinner/LoadingSpinner";
+import ErrorModal from "../shared/UiElements/LoadingSpinner/ErrorModal";
 
 function ProfilePage() {
-  // const { isLoading, error, sendRequest, clearErrorHandler } = useHttpRequest();
+  const { isLoading, error, sendRequest, clearErrorHandler } = useHttpRequest();
   const authCtx = useContext(AuthContext);
   const [profile, setProfile] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const getProfileData = async () => {
-      try {
-        setIsLoading(true);
-        const res = await fetch(url + `api/v1/profile/${authCtx.user.userId}`);
-        if (!res.ok) {
-          throw new Error("Something went wrong");
-        }
-        const data = await res.json();
-
+    sendRequest(
+      url + `api/v1/profile/${authCtx.user.userId}`,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      (data) => {
         const initialState = {
           name: {
             value: data.profile[0]?.firstName,
@@ -46,19 +44,19 @@ function ProfilePage() {
         };
 
         setProfile(initialState);
-        setIsLoading(false);
-      } catch (error) {
-        console.log(error);
-        setError(error.message);
       }
-    };
-
-    getProfileData();
+    );
   }, []);
 
   if (!profile) return;
 
-  return <Profile profile={profile} />;
+  return (
+    <div>
+      <ErrorModal error={error} onClear={clearErrorHandler} />
+      {isLoading && <LoadingSpinner asOverlay />}
+      {!isLoading && <Profile initialState={profile} />}
+    </div>
+  );
 }
 
 export default ProfilePage;

@@ -1,0 +1,9 @@
+.placeItem {
+  width: 30%;
+  position: relative;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: #666;
+}

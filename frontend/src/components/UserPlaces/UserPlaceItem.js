@@ -39,30 +39,6 @@ function UserPlaceItem(props) {
   };
   return (
     <>
-      <Modal
-        show={showModal}
-        onCancel={closeModalHandler}
-        header={props.title}
-        footer={<Button onClick={closeModalHandler}>Close</Button>}
-      >
-        <Map center={props.location} zoom={13} />
-      </Modal>
-      <Modal
-        show={deleteModal}
-        onCancel={closeDeleteModalHandler}
-        header="Are You Sure?"
-        footer={
-          <>
-            <Button onClick={closeDeleteModalHandler}>Cancel</Button>
-            <Button onClick={confirmDeleteHandler}>Delete</Button>
-          </>
-        }
-      >
-        <p className={classes.deleteModalText}>
-          Do you want to proceed and delete this place? Please note that it
-          can't be undone thereafter.
-        </p>
-      </Modal>
       <li>
         <Card className={classes.place}>
           <div className={classes.placeBox}>
@@ -87,6 +63,34 @@ function UserPlaceItem(props) {
           </div>
         </Card>
       </li>
+
+      <Modal
+        show={showModal}
+        onCancel={closeModalHandler}
+        header={props.title}
+        footer={<Button onClick={closeModalHandler}>Close</Button>}
+      >
+        <Map center={props.location} zoom={13} />
+      </Modal>
+
+      <Modal
+        show={deleteModal}
+        onCancel={closeDeleteModalHandler}
+        header="Are You Sure?"
+        footer={
+          <>
+            <Button onClick={closeDeleteModalHandler}>Cancel</Button>
+            <Button danger onClick={confirmDeleteHandler}>
+              Delete
+            </Button>
+          </>
+        }
+      >
+        <p className={classes.deleteModalText}>
+          Do you want to proceed and delete this place? Please note that it
+          can't be undone thereafter.
+        </p>
+      </Modal>
     </>
   );
 }
