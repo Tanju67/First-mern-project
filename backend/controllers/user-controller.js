@@ -138,8 +138,10 @@ exports.logout = async (req, res, next) => {
 
 //REFETCH USER get /api/v1/auth/refetch
 exports.refetch = async (req, res, next) => {
+  // get token from req.cookies
   const token = req.cookies;
-  console.log(token);
+
+  //verify token and send response
   jwt.verify(
     token?.jwtToken,
     process.env.TOKEN_SECRET,
@@ -167,8 +169,10 @@ exports.refetch = async (req, res, next) => {
 
 //GET USER get /api/v1/auth/user/:id
 exports.getUserById = async (req, res, next) => {
+  //get input from body
   const userId = req.params.id;
 
+  // find user on db and populate
   let user;
   try {
     user = await User.find({ _id: userId }).populate("profile");
@@ -176,44 +180,52 @@ exports.getUserById = async (req, res, next) => {
     return next(new HttpError("Something went wrong", 500));
   }
 
+  //if there is existing user,send error msg
   if (!user) {
     return next(new HttpError("User not found!", 404));
   }
 
+  //extract password from user
   const { password, ...info } = user[0]._doc;
 
+  //send response
   res.status(200).json(info);
 };
 
+//DELETE USER delete /api/v1/auth/user/:id
 exports.deleteUser = async (req, res, next) => {
+  //get input from body
   const userId = req.params.id;
 
+  // find user on db
   let user;
   try {
     user = await User.findById(userId);
-    //console.log(user);
   } catch (error) {
     return next(new HttpError("Something went wrong", 500));
   }
 
+  //if there is existing user,send error msg
   if (!user) {
     return next(new HttpError("No user found for provided id", 404));
   }
 
+  //delete user on db
   try {
     await user.deleteOne();
   } catch (error) {
     return next(new HttpError("Something went wrong", 500));
   }
 
+  // find profile which belongs to deleted user on db
   let profile;
   try {
     profile = await Profile.find({ creator: userId });
-    //console.log(profile);
   } catch (error) {
     return next(new HttpError("Something went wrong", 500));
   }
 
+  // delete profile on db and image on backend
   try {
     if (profile.length > 0) {
       await profile[0].deleteOne();
@@ -227,11 +239,12 @@ exports.deleteUser = async (req, res, next) => {
     return next(new HttpError("Something went wrong", 500));
   }
 
+  // find places which belongs to deleted user on db
   let place;
   try {
     place = await Place.find({ creator: userId });
-    // console.log(place);
 
+    //delete places on db and photo on backend
     if (place.length > 0) {
       await Place.deleteMany({ creator: userId });
       place.map((p) => {
@@ -244,5 +257,6 @@ exports.deleteUser = async (req, res, next) => {
     return next(new HttpError("Something went wrong", 500));
   }
 
+  //send response
   res.status(200).json({ msg: "User deleted successfully." });
 };

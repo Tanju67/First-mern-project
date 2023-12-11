@@ -15,12 +15,15 @@ const placeRoutes = require("./routes/place-routes");
 const profileRoutes = require("./routes/profile-routes");
 
 const app = express();
+
 //it is necessary to parse json input
 app.use(express.json());
 app.use("/upload/image", express.static(path.join("upload", "image")));
-//app.use(cors({ origin: "http://localhost:3000/", credentials: true }));
+
+//cookie parser
 app.use(cookieParser());
 
+//cors middleware
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
   res.setHeader(

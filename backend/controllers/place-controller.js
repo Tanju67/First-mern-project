@@ -77,7 +77,6 @@ exports.getPlaceById = async (req, res, next) => {
 ////////////////////////////////////////
 //CREATE PLACE post api/v1/place
 exports.createPlace = async (req, res, next) => {
-  console.log(req.file);
   //validator result
   const errors = validationResult(req);
   if (!errors.isEmpty()) {

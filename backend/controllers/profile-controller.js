@@ -3,6 +3,8 @@ const Profile = require("../models/profile");
 const HttpError = require("../models/error");
 const User = require("../models/User");
 
+////////////////////////////////////////
+//CREATE PROFILE post /api/v1/profile
 exports.postUserprofile = async (req, res, next) => {
   //validator result
   const errors = validationResult(req);
@@ -65,16 +67,16 @@ exports.postUserprofile = async (req, res, next) => {
       new HttpError("Creating profile failed,please try again.", 500);
     }
 
-    res
-      .status(201)
-      .json({
-        message: "Profile created successfully.",
-        image: newProfile.image,
-      });
+    //send response
+    res.status(201).json({
+      message: "Profile created successfully.",
+      image: newProfile.image,
+    });
   }
 };
 
-//getProfileById GET api/v1/proofile/id
+////////////////////////////////////////
+//GET PROFILE get /api/v1/profile/:id
 exports.getProfileById = async (req, res, next) => {
   //get user id from req.params
   const userId = req.params.id;
