@@ -36,3 +36,11 @@
   text-align: center;
   margin-top: 14rem;
 }
+
+@media only screen and (max-width: 970px) {
+  .placeBox img {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+  }
+}

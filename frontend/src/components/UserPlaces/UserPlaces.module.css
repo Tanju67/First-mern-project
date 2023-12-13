@@ -18,3 +18,14 @@
   margin-top: 5rem;
   gap: 30px;
 }
+
+@media only screen and (max-width: 970px) {
+  .page {
+    flex-direction: column;
+    height: min-content;
+  }
+
+  .placesContainer {
+    padding: 2rem 1rem;
+  }
+}

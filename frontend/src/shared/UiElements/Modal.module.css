@@ -2,7 +2,7 @@
   width: 70rem;
   height: 50rem;
   background-color: white;
-  position: absolute;
+  position: fixed;
   z-index: 1000;
   top: 50%;
   left: 50%;
@@ -35,4 +35,14 @@
 
 .footer {
   margin: 1rem 0;
+}
+
+@media only screen and (max-width: 800px) {
+  .modal {
+    width: 80%;
+    height: 70%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 }

@@ -130,8 +130,19 @@ function NavLinks(props) {
           </Button>
         </li>
       )}
+
       {authCtx.isLoggedIn && (
-        <li>
+        <div className={classes.smallScreenMenu}>
+          <p onClick={menuCloseHandler}>Logout</p>
+          <Link onClick={profileHandler} to={"/profile/u2"}>
+            Profile
+          </Link>
+          <p onClick={showDeleteModalHandler}>Delete Your Account</p>
+        </div>
+      )}
+
+      {authCtx.isLoggedIn && (
+        <li className={classes.profileMenu}>
           <Button
             onClick={() => {
               setLogoutMenu((prev) => !prev);
