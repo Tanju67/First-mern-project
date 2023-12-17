@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import AddPlace from "../add-place/AddPlace";
 import { useParams } from "react-router-dom";
 import { useHttpRequest } from "../../shared/hooks/useHttpRequest";
-import { url } from "../../shared/util/url";
 
 function UpdatePlace() {
   const { sendRequest } = useHttpRequest();
@@ -11,7 +10,7 @@ function UpdatePlace() {
 
   useEffect(() => {
     sendRequest(
-      url + `api/v1/place/${placeId}`,
+      process.env.REACT_APP_BASE_URL + `api/v1/place/${placeId}`,
       undefined,
       undefined,
       undefined,

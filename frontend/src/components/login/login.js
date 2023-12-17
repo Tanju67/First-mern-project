@@ -10,7 +10,6 @@ import {
 } from "../../shared/util/validators";
 import { useForm } from "../../shared/hooks/form-hook";
 import { AuthContext } from "../../shared/context/auth-context";
-import { url } from "../../shared/util/url";
 import { useNavigate } from "react-router-dom";
 import ErrorModal from "../../shared/UiElements/LoadingSpinner/ErrorModal";
 import LoadingSpinner from "../../shared/UiElements/LoadingSpinner/LoadingSpinner";
@@ -32,7 +31,7 @@ function Login() {
     e.preventDefault();
 
     sendRequest(
-      url + `api/v1/auth/login`,
+      process.env.REACT_APP_BASE_URL + `api/v1/auth/login`,
       "POST",
       {
         email: formState.email.value,

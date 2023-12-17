@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import Profile from "../components/profile/Profile";
 import { useHttpRequest } from "../shared/hooks/useHttpRequest";
 import { AuthContext } from "../shared/context/auth-context";
-import { url } from "../shared/util/url";
 import LoadingSpinner from "../shared/UiElements/LoadingSpinner/LoadingSpinner";
 import ErrorModal from "../shared/UiElements/LoadingSpinner/ErrorModal";
 
@@ -13,7 +12,7 @@ function ProfilePage() {
 
   useEffect(() => {
     sendRequest(
-      url + `api/v1/profile/${authCtx.user.userId}`,
+      process.env.REACT_APP_BASE_URL + `api/v1/profile/${authCtx.user.userId}`,
       undefined,
       undefined,
       undefined,

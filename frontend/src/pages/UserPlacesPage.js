@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import UserPlaces from "../components/UserPlaces/UserPlaces";
 import { useParams } from "react-router-dom";
 import { useHttpRequest } from "../shared/hooks/useHttpRequest";
-import { url } from "../shared/util/url";
 
 function UserPlacesPage() {
   const { isLoading, error, sendRequest, clearErrorHandler } = useHttpRequest();
@@ -13,7 +12,7 @@ function UserPlacesPage() {
 
   useEffect(() => {
     sendRequest(
-      url + `api/v1/place/user/${userId}`,
+      process.env.REACT_APP_BASE_URL + `api/v1/place/user/${userId}`,
       undefined,
       undefined,
       undefined,

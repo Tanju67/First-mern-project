@@ -10,7 +10,6 @@ import {
   VALIDATOR_MINLENGTH,
   VALIDATOR_REQUIRE,
 } from "../../shared/util/validators";
-import { url } from "../../shared/util/url";
 import LoadingSpinner from "../../shared/UiElements/LoadingSpinner/LoadingSpinner";
 import ErrorModal from "../../shared/UiElements/LoadingSpinner/ErrorModal";
 import { useNavigate } from "react-router-dom";
@@ -30,7 +29,7 @@ function Register() {
     e.preventDefault();
 
     sendRequest(
-      url + `api/v1/auth/register`,
+      process.env.REACT_APP_BASE_URL + `api/v1/auth/register`,
       "POST",
       {
         name: formState.name.value,

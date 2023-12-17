@@ -1,5 +1,4 @@
 import { createContext, useCallback, useEffect, useState } from "react";
-import { url } from "../util/url";
 
 export const AuthContext = createContext({
   user: {},
@@ -26,9 +25,12 @@ export const Provider = (props) => {
 
   const getUser = useCallback(async () => {
     try {
-      const response = await fetch(url + `api/v1/auth/refetch`, {
-        credentials: "include",
-      });
+      const response = await fetch(
+        process.env.REACT_APP_BASE_URL + `api/v1/auth/refetch`,
+        {
+          credentials: "include",
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Data fetching failed!");

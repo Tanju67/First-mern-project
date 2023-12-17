@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import UserPlaces from "../UserPlaces/UserPlaces";
 import { useParams } from "react-router-dom";
 import { useHttpRequest } from "../../shared/hooks/useHttpRequest";
-import { url } from "../../shared/util/url";
 
 function PlaceDetail() {
   const { sendRequest } = useHttpRequest();
@@ -11,7 +10,7 @@ function PlaceDetail() {
 
   useEffect(() => {
     sendRequest(
-      url + `api/v1/place/${placeId}`,
+      process.env.REACT_APP_BASE_URL + `api/v1/place/${placeId}`,
       undefined,
       undefined,
       undefined,

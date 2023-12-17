@@ -7,7 +7,6 @@ import { IoEarthSharp } from "react-icons/io5";
 import { IoMdPhotos } from "react-icons/io";
 import { FaBirthdayCake } from "react-icons/fa";
 import { FaRegAddressCard } from "react-icons/fa";
-import { url } from "../../shared/util/url";
 import ErrorModal from "../../shared/UiElements/LoadingSpinner/ErrorModal";
 import LoadingSpinner from "../../shared/UiElements/LoadingSpinner/LoadingSpinner";
 import { AuthContext } from "../../shared/context/auth-context";
@@ -24,7 +23,7 @@ function Profile(props) {
       return;
     }
     sendRequest(
-      url + `api/v1/auth/user/${props.id}`,
+      process.env.REACT_APP_BASE_URL + `api/v1/auth/user/${props.id}`,
       undefined,
       undefined,
       undefined,
@@ -60,7 +59,11 @@ function Profile(props) {
         <div className={classes.imgBox}>
           {isLoading && <LoadingSpinner asOverlay />}
           <img
-            src={user.image ? url + user.image : personImg}
+            src={
+              user.image
+                ? process.env.REACT_APP_BASE_URL + user.image
+                : personImg
+            }
             alt={props.title}
           />
         </div>

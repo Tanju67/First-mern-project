@@ -6,11 +6,10 @@ import Modal from "../../shared/UiElements/Modal";
 import Map from "../../shared/UiElements/Map";
 import { AuthContext } from "../../shared/context/auth-context";
 import { useHttpRequest } from "../../shared/hooks/useHttpRequest";
-import { url } from "../../shared/util/url";
 import { useNavigate } from "react-router-dom";
 
 function UserPlaceItem(props) {
-  const { isLoading, error, sendRequest, clearErrorHandler } = useHttpRequest();
+  const { sendRequest } = useHttpRequest();
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
@@ -33,7 +32,10 @@ function UserPlaceItem(props) {
   };
 
   const confirmDeleteHandler = () => {
-    sendRequest(url + `api/v1/place/${props.id}`, "DELETE");
+    sendRequest(
+      process.env.REACT_APP_BASE_URL + `api/v1/place/${props.id}`,
+      "DELETE"
+    );
     setDeleteModal(false);
     navigate(`/`);
   };
@@ -42,7 +44,10 @@ function UserPlaceItem(props) {
       <li>
         <Card className={classes.place}>
           <div className={classes.placeBox}>
-            <img src={url + props.image} alt={props.title} />
+            <img
+              src={process.env.REACT_APP_BASE_URL + props.image}
+              alt={props.title}
+            />
             <h3>{props.title}</h3>
             <p className={classes.desc}>{props.description}</p>
             <p className={classes.address}>{props.address}</p>

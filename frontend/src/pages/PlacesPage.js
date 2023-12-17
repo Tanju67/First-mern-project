@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Places from "../components/places/Places";
 import { useHttpRequest } from "../shared/hooks/useHttpRequest";
-import { url } from "../shared/util/url";
 
 function PlacesPage() {
   const { isLoading, error, sendRequest, clearErrorHandler } = useHttpRequest();
@@ -9,7 +8,7 @@ function PlacesPage() {
 
   useEffect(() => {
     sendRequest(
-      url + `api/v1/place`,
+      process.env.REACT_APP_BASE_URL + `api/v1/place`,
       undefined,
       undefined,
       undefined,

@@ -7,7 +7,6 @@ import classes from "./AddPlace.module.css";
 import { VALIDATOR_REQUIRE } from "../../shared/util/validators";
 import Button from "../../shared/UiElements/Button";
 import { useHttpRequest } from "../../shared/hooks/useHttpRequest";
-import { url } from "../../shared/util/url";
 import { useNavigate } from "react-router-dom";
 import ErrorModal from "../../shared/UiElements/LoadingSpinner/ErrorModal";
 import LoadingSpinner from "../../shared/UiElements/LoadingSpinner/LoadingSpinner";
@@ -33,7 +32,7 @@ function AddPlace(props) {
 
     if (props.update) {
       sendRequest(
-        url + `api/v1/place/${props.placeId}`,
+        process.env.REACT_APP_BASE_URL + `api/v1/place/${props.placeId}`,
         "PATCH",
         {
           title: formState.title.value,
@@ -53,7 +52,7 @@ function AddPlace(props) {
         formData.append("description", formState.description.value);
         formData.append("image", formState.image.value);
 
-        await fetch(url + `api/v1/place`, {
+        await fetch(process.env.REACT_APP_BASE_URL + `api/v1/place`, {
           credentials: "include",
           method: "POST",
           body: formData,

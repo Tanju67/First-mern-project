@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import classes from "./PlaceHeader.module.css";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../shared/context/auth-context";
-import { url } from "../../shared/util/url";
 import personImg from "../../assets/person-icon-8.png";
 import { useHttpRequest } from "../../shared/hooks/useHttpRequest";
 import LoadingSpinner from "../../shared/UiElements/LoadingSpinner/LoadingSpinner";
@@ -21,13 +20,13 @@ function PlaceHeader({ date, creator }) {
         : profileData.name,
     image:
       profileData.profile?.length > 0
-        ? url + profileData.profile[0].image
+        ? process.env.REACT_APP_BASE_URL + profileData.profile[0].image
         : personImg,
   };
 
   useEffect(() => {
     sendRequest(
-      url + `api/v1/auth/user/${creator}`,
+      process.env.REACT_APP_BASE_URL + `api/v1/auth/user/${creator}`,
       undefined,
       undefined,
       undefined,

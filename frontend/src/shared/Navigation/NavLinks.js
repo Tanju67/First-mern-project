@@ -8,7 +8,6 @@ import { CgProfile } from "react-icons/cg";
 import { RiLogoutCircleLine } from "react-icons/ri";
 import { CSSTransition } from "react-transition-group";
 import { FaDeleteLeft } from "react-icons/fa6";
-import { url } from "../util/url";
 import personImg from "../../assets/person-icon-8.png";
 import Modal from "../UiElements/Modal";
 import { useHttpRequest } from "../hooks/useHttpRequest";
@@ -31,7 +30,8 @@ function NavLinks(props) {
 
   const confirmDeleteHandler = async () => {
     sendRequest(
-      url + `api/v1/auth/user/${authCtx.user.userId}`,
+      process.env.REACT_APP_BASE_URL +
+        `api/v1/auth/user/${authCtx.user.userId}`,
       "DELETE",
       undefined,
       undefined,
@@ -50,7 +50,7 @@ function NavLinks(props) {
     setLogoutMenu(false);
 
     sendRequest(
-      url + `api/v1/auth/logout`,
+      process.env.REACT_APP_BASE_URL + `api/v1/auth/logout`,
       undefined,
       undefined,
       undefined,
@@ -152,7 +152,11 @@ function NavLinks(props) {
           >
             <div className={classes.imgBox}>
               <img
-                src={authCtx.user.image ? url + authCtx.user.image : personImg}
+                src={
+                  authCtx.user.image
+                    ? process.env.REACT_APP_BASE_URL + authCtx.user.image
+                    : personImg
+                }
                 alt="profile"
               />
             </div>

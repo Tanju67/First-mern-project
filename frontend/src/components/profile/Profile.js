@@ -7,7 +7,6 @@ import { useForm } from "../../shared/hooks/form-hook";
 import { VALIDATOR_REQUIRE } from "../../shared/util/validators";
 import ErrorModal from "../../shared/UiElements/LoadingSpinner/ErrorModal";
 import LoadingSpinner from "../../shared/UiElements/LoadingSpinner/LoadingSpinner";
-import { url } from "../../shared/util/url";
 import { useNavigate } from "react-router-dom";
 import ImageInput from "../../shared/UiElements/ImageInput";
 import { AuthContext } from "../../shared/context/auth-context";
@@ -36,11 +35,14 @@ function Profile(props) {
 
     try {
       setIsLoading(true);
-      const res = await fetch(url + `api/v1/profile`, {
-        method: "POST",
-        body: formdata,
-        credentials: "include",
-      });
+      const res = await fetch(
+        process.env.REACT_APP_BASE_URL + `api/v1/profile`,
+        {
+          method: "POST",
+          body: formdata,
+          credentials: "include",
+        }
+      );
       const data = await res.json();
       console.log(data);
       if (!res.ok) {
